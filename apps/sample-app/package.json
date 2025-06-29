@@ -5,7 +5,7 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "build": "echo 'Building sample app...'",
+    "build": "echo 'Building sample app...' && mkdir -p dist && echo 'Sample app built successfully' > dist/build-info.txt",
     "dev": "echo 'Starting sample app in dev mode...'",
     "lint": "eslint .",
     "test": "echo 'Running tests for sample app...'"

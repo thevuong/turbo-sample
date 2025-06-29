@@ -4,6 +4,9 @@ import type { Linter } from "eslint";
 // Core JavaScript rules - foundation for all configurations
 export const baseJavaScriptRules: Linter.Config[] = [
   {
+    ignores: ["**/dist/**", "**/build/**", "**/node_modules/**"]
+  },
+  {
     files: ["**/*.{js,mjs,cjs}"],
     plugins: { js },
     rules: {

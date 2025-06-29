@@ -9,8 +9,8 @@ export const nextRules: Linter.Config[] = [
       "@next/next": pluginNext
     },
     rules: {
-      ...(pluginNext as any).configs.recommended.rules,
-      ...(pluginNext as any).configs["core-web-vitals"].rules,
+      ...pluginNext.configs.recommended.rules,
+      ...pluginNext.configs["core-web-vitals"].rules,
       // Custom Next.js specific rules
       "@next/next/no-html-link-for-pages": "off",
       "react/react-in-jsx-scope": "off", // Next.js doesn't require React import

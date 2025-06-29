@@ -5,7 +5,7 @@ import type { Linter } from "eslint";
 export const onlyWarnRules: Linter.Config[] = [
   {
     plugins: {
-      "only-warn": pluginOnlyWarn as any
+      "only-warn": pluginOnlyWarn
     }
   }
 ];

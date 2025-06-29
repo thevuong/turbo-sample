@@ -1,13 +1,17 @@
+const ERROR_LEVEL = 2;
+const MAX_SUBJECT_LENGTH = 100;
+const MAX_BODY_LINE_LENGTH = 400;
+
 export default {
   extends: ["@commitlint/config-conventional"],
   rules: {
     "type-enum": [
-      2,
+      ERROR_LEVEL,
       "always",
       ["build", "chore", "ci", "docs", "feat", "fix", "perf", "refactor", "revert", "style", "test"],
     ],
-    "subject-case": [2, "never", ["pascal-case", "upper-case"]],
-    "subject-max-length": [2, "always", 100],
-    "body-max-line-length": [2, "always", 400],
+    "subject-case": [ERROR_LEVEL, "never", ["pascal-case", "upper-case"]],
+    "subject-max-length": [ERROR_LEVEL, "always", MAX_SUBJECT_LENGTH],
+    "body-max-line-length": [ERROR_LEVEL, "always", MAX_BODY_LINE_LENGTH],
   },
 };

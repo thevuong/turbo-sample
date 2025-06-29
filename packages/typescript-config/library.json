@@ -3,24 +3,23 @@
   "display": "Library",
   "extends": "@eslint-sample/typescript-config/base",
   "compilerOptions": {
-    "target": "ES2020",
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true,
+    "emitDeclarationOnly": false,
+    "incremental": true,
     "lib": ["ES2020"],
     "module": "ESNext",
     "moduleResolution": "bundler",
-    "declaration": true,
-    "declarationMap": true,
-    "sourceMap": true,
-    "outDir": "./dist",
-    "removeComments": false,
     "noEmit": false,
-    "emitDeclarationOnly": false,
-    "composite": true,
-    "incremental": true,
-    "tsBuildInfoFile": "./dist/.tsbuildinfo",
-    "stripInternal": true,
+    "outDir": "./dist",
     "paths": {
       "@/*": ["./src/*"]
-    }
+    },
+    "removeComments": false,
+    "sourceMap": true,
+    "stripInternal": true,
+    "target": "ES2020"
   },
   "include": ["src/**/*"],
   "exclude": [

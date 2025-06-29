@@ -1,6 +1,6 @@
 const ERROR_LEVEL = 2;
 const MAX_SUBJECT_LENGTH = 100;
-const MAX_BODY_LINE_LENGTH = 400;
+const MAX_BODY_LINE_LENGTH = 500;
 
 export default {
   extends: ["@commitlint/config-conventional"],

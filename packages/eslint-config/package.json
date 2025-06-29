@@ -202,8 +202,7 @@
   "scripts": {
     "build": "rslib build",
     "dev": "rslib build --watch",
-    "lint": "eslint .",
-    "prepublishOnly": "pnpm build"
+    "lint": "eslint ."
   },
   "dependencies": {
     "@eslint/css": "^0.9.0",
@@ -218,10 +217,10 @@
     "eslint-plugin-react-hooks": "^5.1.0",
     "eslint-plugin-turbo": "^2.3.3",
     "globals": "^16.2.0",
-    "typescript": "^5.8.3",
     "typescript-eslint": "^8.35.0"
   },
   "devDependencies": {
-    "@rslib/core": "^0.10.4"
+    "@rslib/core": "^0.10.4",
+    "typescript": "^5.8.3"
   }
 }

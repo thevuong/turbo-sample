@@ -3,6 +3,11 @@
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/.tmp" />
+      <excludeFolder url="file://$MODULE_DIR$/.turbo" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/sample-app/.turbo" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/sample-app/coverage" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/eslint-config/.turbo" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/eslint-config/test-results" />
       <excludeFolder url="file://$MODULE_DIR$/temp" />
       <excludeFolder url="file://$MODULE_DIR$/tmp" />
     </content>

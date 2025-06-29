@@ -1,19 +1,26 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
+    "baseUrl": ".",
     "outDir": "./dist",
-    "rootDir": "./",
     "declaration": true,
-    "declarationMap": true
+    "declarationMap": true,
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    }
   },
   "include": [
     "**/*.ts",
-    "**/*.tsx",
-    "**/*.js",
-    "**/*.jsx"
+    "**/*.tsx"
   ],
   "exclude": [
-    "node_modules",
-    "dist"
+    [
+      "node_modules",
+      "dist",
+      ".turbo",
+      "coverage"
+    ]
   ]
 }

@@ -3,12 +3,67 @@
   "version": "0.1.0",
   "description": "Shared ESLint configuration for the monorepo",
   "type": "module",
-  "main": "index.js",
+  "main": "./dist/index.js",
+  "exports": {
+    ".": {
+      "import": {
+        "default": "./dist/esm/index.js",
+        "types": "./dist/esm/index.d.ts"
+      },
+      "require": {
+        "default": "./dist/cjs/index.cjs",
+        "types": "./dist/cjs/index.d.ts"
+      }
+    },
+    "./base": {
+      "import": {
+        "default": "./dist/esm/base.js",
+        "types": "./dist/esm/base.d.ts"
+      },
+      "require": {
+        "default": "./dist/cjs/base.cjs",
+        "types": "./dist/cjs/base.d.ts"
+      }
+    },
+    "./react": {
+      "import": {
+        "default": "./dist/esm/react.js",
+        "types": "./dist/esm/react.d.ts"
+      },
+      "require": {
+        "default": "./dist/cjs/react.cjs",
+        "types": "./dist/cjs/react.d.ts"
+      }
+    },
+    "./next": {
+      "import": {
+        "default": "./dist/esm/next.js",
+        "types": "./dist/esm/next.d.ts"
+      },
+      "require": {
+        "default": "./dist/cjs/next.cjs",
+        "types": "./dist/cjs/next.d.ts"
+      }
+    },
+    "./library": {
+      "import": {
+        "default": "./dist/esm/library.js",
+        "types": "./dist/esm/library.d.ts"
+      },
+      "require": {
+        "default": "./dist/cjs/library.cjs",
+        "types": "./dist/cjs/library.d.ts"
+      }
+    }
+  },
   "files": [
-    "index.js"
+    "dist"
   ],
   "scripts": {
-    "lint": "eslint ."
+    "build": "rslib build",
+    "dev": "rslib build --watch",
+    "lint": "eslint .",
+    "prepublishOnly": "pnpm build"
   },
   "dependencies": {
     "@eslint/css": "^0.9.0",
@@ -20,5 +75,8 @@
     "globals": "^16.2.0",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.35.0"
+  },
+  "devDependencies": {
+    "@rslib/core": "^0.10.4"
   }
 }

@@ -1,3 +1,3 @@
-import sharedConfig from '@eslint-sample/eslint-config';
+import { libraryConfig } from '@eslint-sample/eslint-config';
 
-export default sharedConfig;
+export default libraryConfig;

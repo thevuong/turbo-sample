@@ -1,6 +1,6 @@
 {
   "name": "@eslint-sample/eslint-config",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Shared ESLint configuration for the monorepo",
   "type": "module",
   "main": "index.js",

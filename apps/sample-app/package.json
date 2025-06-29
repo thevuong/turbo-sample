@@ -1,6 +1,6 @@
 {
   "name": "@eslint-sample/sample-app",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Sample application in the monorepo",
   "type": "module",
   "main": "index.js",

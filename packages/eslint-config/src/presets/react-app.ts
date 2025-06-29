@@ -1,5 +1,5 @@
-import { baseJavaScriptRules } from "@/core/base";
 import { importRules } from "@/core/import";
+import { baseJavaScriptRules } from "@/core/javascript";
 import { securityRules } from "@/core/security";
 import { typescriptRules } from "@/core/typescript";
 import { unicornRules } from "@/core/unicorn";

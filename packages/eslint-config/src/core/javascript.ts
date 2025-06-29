@@ -2,7 +2,26 @@ import js from "@eslint/js";
 
 import type { Linter } from "eslint";
 
-// Core JavaScript rules - foundation for all configurations with modern practices
+/**
+ * Base JavaScript rules for modern development
+ *
+ * Provides foundational ESLint rules for JavaScript projects with modern ES6+ practices.
+ * Includes recommended rules from @eslint/js plus additional rules for:
+ * - Modern JavaScript syntax (const, arrow functions, template literals)
+ * - Code quality and consistency
+ * - Performance optimizations
+ * - Common anti-patterns prevention
+ *
+ * @example
+ * ```typescript
+ * import { baseJavaScriptRules } from '@eslint-sample/eslint-config';
+ *
+ * export default [
+ *   ...baseJavaScriptRules,
+ *   // your custom rules
+ * ];
+ * ```
+ */
 export const baseJavaScriptRules: Linter.Config[] = [
   {
     ignores: ["**/dist/**", "**/build/**", "**/node_modules/**", "**/coverage/**"],

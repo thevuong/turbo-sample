@@ -37,6 +37,10 @@ declare module "eslint-plugin-turbo" {
 
   const plugin: TurboESLintPlugin;
   export default plugin;
+
+  export const configs: {
+    recommended: Linter.Config;
+  };
 }
 
 declare module "eslint-plugin-security" {

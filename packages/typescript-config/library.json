@@ -3,7 +3,6 @@
   "display": "Library",
   "extends": "@eslint-sample/typescript-config/base",
   "compilerOptions": {
-    "composite": true,
     "emitDeclarationOnly": false,
     "incremental": true,
     "lib": ["ES2020"],

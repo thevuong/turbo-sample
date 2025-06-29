@@ -56,7 +56,7 @@ Features:
 - React JSX support with `react-jsx` transform
 - DOM and ES6 libraries
 - Path aliases (`@/*` and `~/*`)
-- Node module resolution
+- Bundler module resolution (consistent with base config)
 - Optimized for client-side applications
 
 ### Library Packages
@@ -98,6 +98,24 @@ All configurations include:
 - **Module Resolution**: Bundler-style resolution
 - **JSON Support**: `resolveJsonModule` enabled
 - **Isolated Modules**: Required for modern build tools
+
+### Target Versions & Design Decisions
+
+Each configuration uses a specific ES target optimized for its use case:
+
+- **Base Configuration**: `ES2022` - Modern baseline with latest features
+- **Library Configuration**: `ES2020` - Broader compatibility for published packages
+- **React Configuration**: `ES2020` - Balance between modern features and browser support
+- **Next.js Configuration**: `ES2017` - Optimized for Next.js runtime and SSR compatibility
+
+### Optimization Features
+
+This package has been optimized to eliminate redundancy:
+
+- **Inheritance-based**: Extended configurations only override necessary options
+- **No Duplication**: Common settings are inherited from base configuration
+- **Consistent Module Resolution**: All configurations use bundler-style resolution
+- **Minimal Footprint**: Each configuration file contains only unique settings
 
 ### Path Aliases
 

@@ -1,8 +1,10 @@
+import type { UserConfig } from "@commitlint/types";
+
 const ERROR_LEVEL = 2;
 const MAX_SUBJECT_LENGTH = 100;
 const MAX_BODY_LINE_LENGTH = 500;
 
-export default {
+const config: UserConfig = {
   extends: ["@commitlint/config-conventional"],
   rules: {
     "type-enum": [
@@ -15,3 +17,5 @@ export default {
     "body-max-line-length": [ERROR_LEVEL, "always", MAX_BODY_LINE_LENGTH],
   },
 };
+
+export default config;

@@ -2,6 +2,28 @@
   "name": "@eslint-sample/eslint-config",
   "version": "0.1.0",
   "description": "Shared ESLint configuration for the monorepo",
+  "keywords": [
+    "eslint",
+    "eslint-config",
+    "configuration",
+    "linting",
+    "javascript",
+    "typescript",
+    "react",
+    "nextjs",
+    "monorepo"
+  ],
+  "homepage": "https://github.com/your-org/eslint-sample/tree/main/packages/eslint-config#readme",
+  "bugs": {
+    "url": "https://github.com/your-org/eslint-sample/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-org/eslint-sample.git",
+    "directory": "packages/eslint-config"
+  },
+  "license": "MIT",
+  "author": "ESLint Sample Team",
   "type": "module",
   "exports": {
     ".": {
@@ -257,12 +279,19 @@
   },
   "main": "./dist/index.js",
   "files": [
-    "dist"
+    "dist",
+    "README.md"
   ],
   "scripts": {
     "build": "rslib build",
+    "clean": "rm -rf dist",
     "dev": "rslib build --watch",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "prepublishOnly": "pnpm build && pnpm test && pnpm lint",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "@eslint/css": "^0.9.0",
@@ -287,7 +316,17 @@
   },
   "devDependencies": {
     "@eslint-sample/typescript-config": "workspace:*",
+    "@jest/globals": "^29.7.0",
     "@rslib/core": "^0.10.4",
+    "@swc/jest": "^0.2.36",
+    "jest": "^29.7.0",
+    "ts-node": "^10.9.2",
     "typescript": "^5.8.3"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

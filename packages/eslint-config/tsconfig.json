@@ -3,11 +3,10 @@
   "compilerOptions": {
     "baseUrl": ".",
     "outDir": "./dist",
-    "rootDir": "./src",
     "paths": {
       "@/*": ["./src/*"]
     }
   },
-  "include": ["src/**/*", "*.ts"],
-  "exclude": ["node_modules", "dist", ".turbo", "coverage", "**/*.test.*", "**/*.spec.*"]
+  "include": ["src/**/*", "tests/**/*", "*.ts"],
+  "exclude": ["node_modules", "dist", ".turbo", "coverage"]
 }

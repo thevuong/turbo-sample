@@ -75,7 +75,7 @@ pnpm add -D @eslint-sample/eslint-config
 ### For a React.js Project
 
 ```javascript
-// eslint.config.js
+// eslint.config.ts
 import reactConfig from "@eslint-sample/eslint-config/react";
 
 export default reactConfig;
@@ -84,7 +84,7 @@ export default reactConfig;
 ### For a Next.js Project
 
 ```javascript
-// eslint.config.js
+// eslint.config.ts
 import nextConfig from "@eslint-sample/eslint-config/next";
 
 export default nextConfig;
@@ -93,7 +93,7 @@ export default nextConfig;
 ### For a Library Project
 
 ```javascript
-// eslint.config.js
+// eslint.config.ts
 import libraryConfig from "@eslint-sample/eslint-config/library";
 
 export default libraryConfig;
@@ -104,7 +104,7 @@ export default libraryConfig;
 You can extend any configuration with your own rules:
 
 ```javascript
-// eslint.config.js
+// eslint.config.ts
 import baseConfig from "@eslint-sample/eslint-config/base";
 
 export default [

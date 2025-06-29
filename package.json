@@ -14,12 +14,13 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "lint": "turbo lint",
-    "lint:fix": "turbo lint -- --fix",
+    "lint:fix": "turbo lint:fix",
     "test": "turbo test"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
+    "@commitlint/types": "^19.8.1",
     "@eslint-sample/eslint-config": "workspace:*",
     "@eslint-sample/typescript-config": "workspace:*",
     "lint-staged": "^16.1.2",

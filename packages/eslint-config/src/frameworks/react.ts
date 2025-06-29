@@ -8,20 +8,20 @@ export const reactRules: Linter.Config[] = [
     files: ["**/*.{jsx,tsx}"],
     plugins: {
       react: pluginReact,
-      "react-hooks": pluginReactHooks
+      "react-hooks": pluginReactHooks,
     },
     rules: {
       ...pluginReact.configs.recommended.rules,
       ...pluginReactHooks.configs.recommended.rules,
       "react/react-in-jsx-scope": "off", // Not needed in modern React
-      "react/prop-types": "off" // TypeScript handles prop validation
+      "react/prop-types": "off", // TypeScript handles prop validation
     },
     settings: {
       react: {
-        version: "detect"
-      }
-    }
-  }
+        version: "detect",
+      },
+    },
+  },
 ];
 
 export default reactRules;

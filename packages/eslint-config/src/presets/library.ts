@@ -1,5 +1,5 @@
-import { basePreset } from '@/presets/base';
-import { composeConfig } from '@/utils/composer';
+import { basePreset } from "@/presets/base";
+import { composeConfig } from "@/utils/composer";
 import type { Linter } from "eslint";
 
 // Library preset - stricter rules for library development
@@ -12,14 +12,11 @@ const libraryStrictRules: Linter.Config[] = [
       "@typescript-eslint/explicit-function-return-type": "warn",
       "@typescript-eslint/no-explicit-any": "error",
       "prefer-const": "error",
-      "no-var": "error"
-    }
-  }
+      "no-var": "error",
+    },
+  },
 ];
 
-export const libraryPreset: Linter.Config[] = composeConfig(
-  basePreset,
-  libraryStrictRules
-);
+export const libraryPreset: Linter.Config[] = composeConfig(basePreset, libraryStrictRules);
 
 export default libraryPreset;

@@ -15,6 +15,7 @@ This is a **Turborepo monorepo** containing an ESLint configuration package and 
 ```
 
 ### Key Technologies
+
 - **Package Manager**: pnpm@9.12.0 (specified in package.json)
 - **Build Orchestration**: Turborepo v2.5.4
 - **Module System**: ES modules (`"type": "module"`)
@@ -23,10 +24,12 @@ This is a **Turborepo monorepo** containing an ESLint configuration package and 
 ## Build/Configuration Instructions
 
 ### Prerequisites
+
 - Node.js (compatible with ES2022 target)
 - pnpm 9.12.0 or compatible
 
 ### Initial Setup
+
 ```bash
 # Install dependencies for all workspaces
 pnpm install
@@ -36,6 +39,7 @@ pnpm build
 ```
 
 ### Development Workflow
+
 ```bash
 # Start development mode (watch mode for all packages)
 pnpm dev
@@ -54,6 +58,7 @@ pnpm clean
 ```
 
 ### ESLint Config Package Build Process
+
 The `@eslint-sample/eslint-config` package uses **rslib** for building:
 
 - **Build Tool**: rslib (@rslib/core v0.10.4)
@@ -63,12 +68,14 @@ The `@eslint-sample/eslint-config` package uses **rslib** for building:
 - **Configuration**: `packages/eslint-config/rslib.config.ts`
 
 Build outputs:
+
 - `dist/esm/` - ES modules with .js and .d.ts files
 - `dist/cjs/` - CommonJS modules with .cjs and .d.ts files
 
 ## Testing Information
 
 ### Testing Framework
+
 Uses **Node.js built-in test runner** with **tsx** for TypeScript support:
 
 ```bash
@@ -81,14 +88,16 @@ pnpm test
 ```
 
 ### Adding New Tests
+
 1. Create test files with `.test.ts` extension in the `src/` directory
 2. Use Node.js built-in test functions:
-   ```typescript
-   import { strict as assert } from 'node:assert';
-   import { test, describe } from 'node:test';
 
-   describe('Your Feature', () => {
-     test('should do something', () => {
+   ```typescript
+   import { strict as assert } from "node:assert";
+   import { test, describe } from "node:test";
+
+   describe("Your Feature", () => {
+     test("should do something", () => {
        assert.equal(actual, expected);
      });
    });
@@ -96,15 +105,17 @@ pnpm test
 
 3. Import from TypeScript source files using `.ts` extension:
    ```typescript
-   import { yourFunction } from './your-module.ts';
+   import { yourFunction } from "./your-module.ts";
    ```
 
 ### Test Configuration
+
 - **Test Runner**: `tsx --test src/**/*.test.ts`
 - **Dependencies**: tsx is required as devDependency for TypeScript support
 - **Test Files**: Excluded from build output (configured in rslib.config.ts and tsconfig.build.json)
 
 ### Example Test Execution
+
 ```bash
 cd packages/eslint-config
 pnpm test
@@ -114,12 +125,14 @@ pnpm test
 ## Code Style and Development Practices
 
 ### TypeScript Configuration
+
 - **Target**: ES2022 with ESNext modules
 - **Module Resolution**: bundler
 - **Strict Mode**: Enabled with all strict checks
 - **Path Aliases**: Uses `@/` for `src/` directory
 
 ### ESLint Package Structure
+
 The ESLint configuration follows a modular, atomic design:
 
 ```
@@ -133,29 +146,33 @@ src/
 ```
 
 ### Code Patterns
+
 1. **Exports**: Use both named and default exports for flexibility
 2. **Type Safety**: All configurations use proper TypeScript types (`Linter.Config[]`)
 3. **Comments**: Include explanatory comments for rule overrides
 4. **Modularity**: Each file exports atomic configurations that can be composed
 
 ### ESLint Configuration Patterns
+
 ```typescript
 // Example configuration structure
 export const configName: Linter.Config[] = [
   {
-    ignores: ["**/dist/**", "**/build/**"]
+    ignores: ["**/dist/**", "**/build/**"],
   },
   {
     files: ["**/*.{js,ts}"],
     rules: {
       "rule-name": "error", // Comment explaining why
-    }
-  }
+    },
+  },
 ];
 ```
 
 ### Package.json Scripts Standards
+
 Each package should include:
+
 - `build`: Build the package
 - `dev`: Development/watch mode
 - `lint`: ESLint validation

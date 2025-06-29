@@ -7,10 +7,10 @@ export const nodeEnvironment: Linter.Config[] = [
     files: ["**/*.{js,mjs,cjs,ts,mts,cts}"],
     languageOptions: {
       globals: {
-        ...globals.node
-      }
-    }
-  }
+        ...globals.node,
+      },
+    },
+  },
 ];
 
 export default nodeEnvironment;

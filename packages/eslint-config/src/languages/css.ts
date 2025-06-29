@@ -8,9 +8,9 @@ export const cssRules: Linter.Config[] = [
     plugins: { css } as any,
     language: "css/css",
     rules: {
-      ...css.configs.recommended.rules
-    }
-  }
+      ...css.configs.recommended.rules,
+    },
+  },
 ];
 
 export default cssRules;

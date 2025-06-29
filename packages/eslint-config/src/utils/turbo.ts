@@ -5,12 +5,12 @@ import type { Linter } from "eslint";
 export const turboRules: Linter.Config[] = [
   {
     plugins: {
-      turbo: pluginTurbo
+      turbo: pluginTurbo,
     },
     rules: {
-      ...pluginTurbo.configs.recommended.rules
-    }
-  }
+      ...pluginTurbo.configs.recommended.rules,
+    },
+  },
 ];
 
 export default turboRules;

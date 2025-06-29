@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "description": "Shared ESLint configuration for the monorepo",
   "type": "module",
-  "main": "./dist/index.js",
   "exports": {
     ".": {
       "import": {
@@ -196,6 +195,7 @@
       }
     }
   },
+  "main": "./dist/index.js",
   "files": [
     "dist"
   ],

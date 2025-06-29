@@ -8,9 +8,9 @@ export const markdownRules: Linter.Config[] = [
     plugins: { markdown } as any,
     language: "markdown/gfm",
     rules: {
-      ...(markdown.configs.recommended[0]?.rules || {})
-    }
-  }
+      ...(markdown.configs.recommended[0]?.rules || {}),
+    },
+  },
 ];
 
 export default markdownRules;

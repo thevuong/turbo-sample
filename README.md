@@ -16,16 +16,19 @@ This project has been converted from a simple ESLint sample to a monorepo using 
 ## Getting Started
 
 1. Install dependencies:
+
    ```bash
    pnpm install
    ```
 
 2. Run linting across all packages:
+
    ```bash
    pnpm lint
    ```
 
 3. Build all packages:
+
    ```bash
    pnpm build
    ```
@@ -38,7 +41,9 @@ This project has been converted from a simple ESLint sample to a monorepo using 
 ## Packages
 
 ### @eslint-sample/eslint-config
+
 Shared ESLint configuration that can be used across all apps and packages in the monorepo. It includes configurations for:
+
 - JavaScript/TypeScript
 - React
 - JSON
@@ -46,6 +51,7 @@ Shared ESLint configuration that can be used across all apps and packages in the
 - CSS
 
 ### @eslint-sample/sample-app
+
 A sample application demonstrating how to use the shared ESLint configuration in a monorepo setup.
 
 ## Scripts
@@ -59,6 +65,7 @@ A sample application demonstrating how to use the shared ESLint configuration in
 ## Turborepo Features
 
 This monorepo uses Turborepo for:
+
 - Task orchestration and caching
 - Parallel execution of tasks
 - Dependency-aware task scheduling

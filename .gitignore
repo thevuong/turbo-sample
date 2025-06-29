@@ -1,64 +1,152 @@
 # =============================================================================
 # DEPENDENCIES & PACKAGE MANAGERS
 # =============================================================================
-/node_modules
-/.pnp
+node_modules/
+.pnp
 .pnp.js
+.pnpm-store/
+.npm
 
-# Monorepo - node_modules in packages and apps
-packages/*/node_modules/
-apps/*/node_modules/
+# Package manager logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+pnpm-debug.log*
+
+# Yarn specific (for future compatibility)
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
 
 # =============================================================================
 # BUILD OUTPUTS & PRODUCTION
 # =============================================================================
+# Workspace builds (covers all subdirectories)
+**/build/
+**/dist/
+**/lib/
+**/esm/
+**/cjs/
+
 # Next.js
-/.next/
-/out/
-
-# Production builds
-/build
-
-# Monorepo - dist directories in packages
-packages/*/dist/
+.next/
+out/
 
 # Turbo
 .turbo/
 
+# RSPack/Webpack
+.rspack/
+.webpack/
+
+# Storybook
+storybook-static/
+
+# =============================================================================
+# CACHE & TEMPORARY FILES
+# =============================================================================
+# Cache directories
+.cache/
+.parcel-cache/
+.sass-cache/
+
+# Temporary files
+*.tmp
+*.temp
+**/temp/
+**/.temp/
+
 # =============================================================================
 # ENVIRONMENT & CONFIGURATION
 # =============================================================================
-# Local environment files
+# Environment files
+.env
 .env*.local
 
-# Vercel
-.vercel
+# Config files with sensitive data
+.npmrc
+.yarnrc
+.pnpmfile.cjs
+
+# Deployment
+.vercel/
+.netlify/
 
 # =============================================================================
 # TYPESCRIPT
 # =============================================================================
 *.tsbuildinfo
 next-env.d.ts
+.tscache/
+
+# =============================================================================
+# TESTING & COVERAGE
+# =============================================================================
+coverage/
+test-results/
+junit.xml
+.nyc_output/
+jest-coverage/
+.jest/
+playwright-report/
 
 # =============================================================================
 # LOGS & DEBUG
 # =============================================================================
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-.pnpm-debug.log*
+lerna-debug.log*
+firebase-debug.log
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
 
 # =============================================================================
-# TESTING
+# IDE & EDITOR FILES
 # =============================================================================
-/coverage
-**/coverage/
-**/test-results/
-**/junit.xml
-**/.nyc_output/
+# JetBrains IDEs
+.idea/
+
+# Vim
+*~
+*.swp
+*.swo
+
+# VS Code (selective)
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
 
 # =============================================================================
-# OS & IDE FILES
+# OS & SYSTEM FILES
 # =============================================================================
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# =============================================================================
+# CERTIFICATES & SECURITY
+# =============================================================================
 *.pem
+*.key
+*.crt
+*.csr
+
+# =============================================================================
+# MISCELLANEOUS
+# =============================================================================
+.firebase/
+.sentryclirc

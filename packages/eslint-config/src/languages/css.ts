@@ -5,7 +5,7 @@ import type { Linter } from "eslint";
 export const cssRules: Linter.Config[] = [
   {
     files: ["**/*.css"],
-    plugins: { css } as any,
+    plugins: { css },
     language: "css/css",
     rules: {
       ...css.configs.recommended.rules,

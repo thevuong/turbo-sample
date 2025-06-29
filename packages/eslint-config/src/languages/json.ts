@@ -5,15 +5,16 @@ import type { Linter } from "eslint";
 export const jsonRules: Linter.Config[] = [
   {
     files: ["**/*.json"],
-    plugins: { json } as any,
+    ignores: ["package-lock.json"],
     language: "json/json",
+    plugins: { json },
     rules: {
       ...json.configs.recommended.rules,
     },
   },
   {
     files: ["**/*.jsonc"],
-    plugins: { json } as any,
+    plugins: { json },
     language: "json/jsonc",
     rules: {
       ...json.configs.recommended.rules,
@@ -21,7 +22,7 @@ export const jsonRules: Linter.Config[] = [
   },
   {
     files: ["**/*.json5"],
-    plugins: { json } as any,
+    plugins: { json },
     language: "json/json5",
     rules: {
       ...json.configs.recommended.rules,

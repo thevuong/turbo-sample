@@ -22,7 +22,7 @@ export const typescriptRules: Linter.Config[] = [
       "@typescript-eslint/no-floating-promises": "error",
       "@typescript-eslint/no-misused-promises": "error",
       "@typescript-eslint/prefer-readonly": "error",
-      "@typescript-eslint/prefer-readonly-parameter-types": "warn",
+      // "@typescript-eslint/prefer-readonly-parameter-types": "warn",
       "@typescript-eslint/prefer-string-starts-ends-with": "error",
       "@typescript-eslint/prefer-includes": "error",
       "@typescript-eslint/prefer-for-of": "error",

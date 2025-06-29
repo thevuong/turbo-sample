@@ -1,4 +1,4 @@
-import pluginTurbo, { configs } from "eslint-plugin-turbo";
+import pluginTurbo from "eslint-plugin-turbo";
 
 import type { Linter } from "eslint";
 
@@ -9,7 +9,7 @@ export const turboRules: Linter.Config[] = [
       turbo: pluginTurbo,
     },
     rules: {
-      ...configs.recommended.rules,
+      ...pluginTurbo.configs.recommended.rules,
     },
   },
 ];

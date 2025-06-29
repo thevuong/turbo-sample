@@ -1,4 +1,3 @@
-
 import { baseJavaScriptRules } from "@/core/base";
 import { importRules } from "@/core/import";
 import { securityRules } from "@/core/security";
@@ -12,6 +11,7 @@ import { jsonRules } from "@/languages/json";
 import { markdownRules } from "@/languages/markdown";
 import { jestRules } from "@/testing/jest";
 import { composeConfig } from "@/utils/composer";
+import { prettierRules } from "@/utils/prettier";
 
 import type { Linter } from "eslint";
 
@@ -29,6 +29,7 @@ export const reactAppPreset: Linter.Config[] = composeConfig(
   reactRules,
   jsxA11yRules,
   jestRules,
+  prettierRules,
 );
 
 export default reactAppPreset;

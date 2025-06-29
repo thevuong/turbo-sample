@@ -1,0 +1,33 @@
+{
+  "name": "@eslint-sample/typescript-config",
+  "version": "0.1.0",
+  "description": "Shared TypeScript configurations for different use cases",
+  "keywords": [
+    "typescript",
+    "tsconfig",
+    "configuration",
+    "monorepo"
+  ],
+  "homepage": "https://github.com/your-org/eslint-sample/tree/main/packages/typescript-config#readme",
+  "bugs": {
+    "url": "https://github.com/your-org/eslint-sample/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-org/eslint-sample.git",
+    "directory": "packages/typescript-config"
+  },
+  "license": "MIT",
+  "author": "ESLint Sample Team",
+  "type": "module",
+  "exports": {
+    "./base": "./base.json",
+    "./next": "./next.json",
+    "./react": "./react.json",
+    "./library": "./library.json"
+  },
+  "files": [
+    "*.json",
+    "README.md"
+  ]
+}

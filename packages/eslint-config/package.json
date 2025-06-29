@@ -286,6 +286,7 @@
     "typescript-eslint": "^8.35.0"
   },
   "devDependencies": {
+    "@eslint-sample/typescript-config": "workspace:*",
     "@rslib/core": "^0.10.4",
     "typescript": "^5.8.3"
   }

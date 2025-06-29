@@ -1,14 +1,13 @@
 {
-  "extends": "../../tsconfig.json",
+  "extends": "@eslint-sample/typescript-config/library",
   "compilerOptions": {
     "baseUrl": ".",
     "outDir": "./dist",
-    "declaration": true,
-    "declarationMap": true,
+    "rootDir": "./src",
     "paths": {
       "@/*": ["./src/*"]
     }
   },
-  "include": ["**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules", "dist", ".turbo", "coverage"]
+  "include": ["src/**/*", "*.ts"],
+  "exclude": ["node_modules", "dist", ".turbo", "coverage", "**/*.test.*", "**/*.spec.*"]
 }

@@ -17,6 +17,9 @@ importers:
       '@eslint-sample/eslint-config':
         specifier: workspace:*
         version: link:packages/eslint-config
+      '@eslint-sample/typescript-config':
+        specifier: workspace:*
+        version: link:packages/typescript-config
       lint-staged:
         specifier: ^16.1.2
         version: 16.1.2
@@ -35,15 +38,6 @@ importers:
       turbo:
         specifier: ^2.5.4
         version: 2.5.4
-      typescript:
-        specifier: ^5.8.3
-        version: 5.8.3
-
-  apps/sample-app:
-    devDependencies:
-      '@eslint-sample/eslint-config':
-        specifier: workspace:*
-        version: link:../../packages/eslint-config
       typescript:
         specifier: ^5.8.3
         version: 5.8.3
@@ -108,12 +102,17 @@ importers:
         specifier: ^8.35.0
         version: 8.35.0(eslint@9.30.0(jiti@2.4.2))(typescript@5.8.3)
     devDependencies:
+      '@eslint-sample/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
       '@rslib/core':
         specifier: ^0.10.4
         version: 0.10.4(typescript@5.8.3)
       typescript:
         specifier: ^5.8.3
         version: 5.8.3
+
+  packages/typescript-config: {}
 
 packages:
 

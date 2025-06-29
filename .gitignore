@@ -1,36 +1,64 @@
-### NextJS template
-# dependencies
+# =============================================================================
+# DEPENDENCIES & PACKAGE MANAGERS
+# =============================================================================
 /node_modules
 /.pnp
 .pnp.js
 
-# testing
-/coverage
+# Monorepo - node_modules in packages and apps
+packages/*/node_modules/
+apps/*/node_modules/
 
-# next.js
+# =============================================================================
+# BUILD OUTPUTS & PRODUCTION
+# =============================================================================
+# Next.js
 /.next/
 /out/
 
-# production
+# Production builds
 /build
 
-# misc
-.DS_Store
-*.pem
+# Monorepo - dist directories in packages
+packages/*/dist/
 
-# debug
+# Turbo
+.turbo/
+
+# =============================================================================
+# ENVIRONMENT & CONFIGURATION
+# =============================================================================
+# Local environment files
+.env*.local
+
+# Vercel
+.vercel
+
+# =============================================================================
+# TYPESCRIPT
+# =============================================================================
+*.tsbuildinfo
+next-env.d.ts
+
+# =============================================================================
+# LOGS & DEBUG
+# =============================================================================
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# local env files
-.env*.local
+# =============================================================================
+# TESTING
+# =============================================================================
+/coverage
+**/coverage/
+**/test-results/
+**/junit.xml
+**/.nyc_output/
 
-# vercel
-.vercel
-
-# typescript
-*.tsbuildinfo
-next-env.d.ts
-
+# =============================================================================
+# OS & IDE FILES
+# =============================================================================
+.DS_Store
+*.pem

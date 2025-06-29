@@ -1,21 +1,22 @@
 {
-  "name": "eslint-sample",
+  "name": "eslint-sample-monorepo",
   "version": "1.0.0",
-  "main": "index.js",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@9.12.0",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "turbo build",
+    "dev": "turbo dev",
+    "lint": "turbo lint",
+    "test": "turbo test",
+    "clean": "turbo clean"
   },
   "author": "",
   "license": "ISC",
-  "description": "",
+  "description": "ESLint sample project converted to monorepo with Turborepo",
   "devDependencies": {
-    "@eslint/css": "^0.9.0",
-    "@eslint/js": "^9.30.0",
-    "@eslint/json": "^0.12.0",
-    "@eslint/markdown": "^6.6.0",
-    "eslint": "^9.30.0",
-    "eslint-plugin-react": "^7.37.5",
-    "globals": "^16.2.0",
-    "typescript-eslint": "^8.35.0"
+    "@eslint-sample/eslint-config": "workspace:*",
+    "turbo": "^2.5.4",
+    "typescript": "^5.8.3"
   }
 }

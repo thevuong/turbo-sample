@@ -1,0 +1,17 @@
+{
+  "name": "@eslint-sample/sample-app",
+  "version": "1.0.0",
+  "description": "Sample application in the monorepo",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "build": "echo 'Building sample app...'",
+    "dev": "echo 'Starting sample app in dev mode...'",
+    "lint": "eslint .",
+    "test": "echo 'Running tests for sample app...'"
+  },
+  "devDependencies": {
+    "@eslint-sample/eslint-config": "workspace:*",
+    "typescript": "^5.8.3"
+  }
+}

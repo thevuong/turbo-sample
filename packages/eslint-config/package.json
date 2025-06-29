@@ -29,271 +29,271 @@
     ".": {
       "import": {
         "default": "./dist/esm/index.js",
-        "types": "./dist/esm/src/index.d.ts"
+        "types": "./dist/esm/index.d.ts"
       },
       "require": {
         "default": "./dist/cjs/index.cjs",
-        "types": "./dist/cjs/src/index.d.ts"
+        "types": "./dist/cjs/index.d.ts"
       }
     },
     "./base": {
       "import": {
         "default": "./dist/esm/presets/base-preset.js",
-        "types": "./dist/esm/src/presets/base-preset.d.ts"
+        "types": "./dist/esm/presets/base-preset.d.ts"
       },
       "require": {
         "default": "./dist/cjs/presets/base-preset.cjs",
-        "types": "./dist/cjs/src/presets/base-preset.d.ts"
+        "types": "./dist/cjs/presets/base-preset.d.ts"
       }
     },
     "./react": {
       "import": {
         "default": "./dist/esm/presets/react-app.js",
-        "types": "./dist/esm/src/presets/react-app.d.ts"
+        "types": "./dist/esm/presets/react-app.d.ts"
       },
       "require": {
         "default": "./dist/cjs/presets/react-app.cjs",
-        "types": "./dist/cjs/src/presets/react-app.d.ts"
+        "types": "./dist/cjs/presets/react-app.d.ts"
       }
     },
     "./next": {
       "import": {
         "default": "./dist/esm/presets/next-app.js",
-        "types": "./dist/esm/src/presets/next-app.d.ts"
+        "types": "./dist/esm/presets/next-app.d.ts"
       },
       "require": {
         "default": "./dist/cjs/presets/next-app.cjs",
-        "types": "./dist/cjs/src/presets/next-app.d.ts"
+        "types": "./dist/cjs/presets/next-app.d.ts"
       }
     },
     "./library": {
       "import": {
         "default": "./dist/esm/presets/library.js",
-        "types": "./dist/esm/src/presets/library.d.ts"
+        "types": "./dist/esm/presets/library.d.ts"
       },
       "require": {
         "default": "./dist/cjs/presets/library.cjs",
-        "types": "./dist/cjs/src/presets/library.d.ts"
+        "types": "./dist/cjs/presets/library.d.ts"
       }
     },
     "./core/javascript": {
       "import": {
         "default": "./dist/esm/core/javascript.js",
-        "types": "./dist/esm/src/core/javascript.d.ts"
+        "types": "./dist/esm/core/javascript.d.ts"
       },
       "require": {
         "default": "./dist/cjs/core/javascript.cjs",
-        "types": "./dist/cjs/src/core/javascript.d.ts"
+        "types": "./dist/cjs/core/javascript.d.ts"
       }
     },
     "./core/typescript": {
       "import": {
         "default": "./dist/esm/core/typescript.js",
-        "types": "./dist/esm/src/core/typescript.d.ts"
+        "types": "./dist/esm/core/typescript.d.ts"
       },
       "require": {
         "default": "./dist/cjs/core/typescript.cjs",
-        "types": "./dist/cjs/src/core/typescript.d.ts"
+        "types": "./dist/cjs/core/typescript.d.ts"
       }
     },
     "./environments/node": {
       "import": {
         "default": "./dist/esm/environments/node.js",
-        "types": "./dist/esm/src/environments/node.d.ts"
+        "types": "./dist/esm/environments/node.d.ts"
       },
       "require": {
         "default": "./dist/cjs/environments/node.cjs",
-        "types": "./dist/cjs/src/environments/node.d.ts"
+        "types": "./dist/cjs/environments/node.d.ts"
       }
     },
     "./environments/browser": {
       "import": {
         "default": "./dist/esm/environments/browser.js",
-        "types": "./dist/esm/src/environments/browser.d.ts"
+        "types": "./dist/esm/environments/browser.d.ts"
       },
       "require": {
         "default": "./dist/cjs/environments/browser.cjs",
-        "types": "./dist/cjs/src/environments/browser.d.ts"
+        "types": "./dist/cjs/environments/browser.d.ts"
       }
     },
     "./languages/json": {
       "import": {
         "default": "./dist/esm/languages/json.js",
-        "types": "./dist/esm/src/languages/json.d.ts"
+        "types": "./dist/esm/languages/json.d.ts"
       },
       "require": {
         "default": "./dist/cjs/languages/json.cjs",
-        "types": "./dist/cjs/src/languages/json.d.ts"
+        "types": "./dist/cjs/languages/json.d.ts"
       }
     },
     "./languages/markdown": {
       "import": {
         "default": "./dist/esm/languages/markdown.js",
-        "types": "./dist/esm/src/languages/markdown.d.ts"
+        "types": "./dist/esm/languages/markdown.d.ts"
       },
       "require": {
         "default": "./dist/cjs/languages/markdown.cjs",
-        "types": "./dist/cjs/src/languages/markdown.d.ts"
+        "types": "./dist/cjs/languages/markdown.d.ts"
       }
     },
     "./languages/css": {
       "import": {
         "default": "./dist/esm/languages/css.js",
-        "types": "./dist/esm/src/languages/css.d.ts"
+        "types": "./dist/esm/languages/css.d.ts"
       },
       "require": {
         "default": "./dist/cjs/languages/css.cjs",
-        "types": "./dist/cjs/src/languages/css.d.ts"
+        "types": "./dist/cjs/languages/css.d.ts"
       }
     },
     "./frameworks/react": {
       "import": {
         "default": "./dist/esm/frameworks/react.js",
-        "types": "./dist/esm/src/frameworks/react.d.ts"
+        "types": "./dist/esm/frameworks/react.d.ts"
       },
       "require": {
         "default": "./dist/cjs/frameworks/react.cjs",
-        "types": "./dist/cjs/src/frameworks/react.d.ts"
+        "types": "./dist/cjs/frameworks/react.d.ts"
       }
     },
     "./frameworks/next": {
       "import": {
         "default": "./dist/esm/frameworks/next.js",
-        "types": "./dist/esm/src/frameworks/next.d.ts"
+        "types": "./dist/esm/frameworks/next.d.ts"
       },
       "require": {
         "default": "./dist/cjs/frameworks/next.cjs",
-        "types": "./dist/cjs/src/frameworks/next.d.ts"
+        "types": "./dist/cjs/frameworks/next.d.ts"
       }
     },
     "./presets/base": {
       "import": {
         "default": "./dist/esm/presets/base-preset.js",
-        "types": "./dist/esm/src/presets/base-preset.d.ts"
+        "types": "./dist/esm/presets/base-preset.d.ts"
       },
       "require": {
         "default": "./dist/cjs/presets/base-preset.cjs",
-        "types": "./dist/cjs/src/presets/base-preset.d.ts"
+        "types": "./dist/cjs/presets/base-preset.d.ts"
       }
     },
     "./presets/library": {
       "import": {
         "default": "./dist/esm/presets/library.js",
-        "types": "./dist/esm/src/presets/library.d.ts"
+        "types": "./dist/esm/presets/library.d.ts"
       },
       "require": {
         "default": "./dist/cjs/presets/library.cjs",
-        "types": "./dist/cjs/src/presets/library.d.ts"
+        "types": "./dist/cjs/presets/library.d.ts"
       }
     },
     "./presets/react-app": {
       "import": {
         "default": "./dist/esm/presets/react-app.js",
-        "types": "./dist/esm/src/presets/react-app.d.ts"
+        "types": "./dist/esm/presets/react-app.d.ts"
       },
       "require": {
         "default": "./dist/cjs/presets/react-app.cjs",
-        "types": "./dist/cjs/src/presets/react-app.d.ts"
+        "types": "./dist/cjs/presets/react-app.d.ts"
       }
     },
     "./presets/next-app": {
       "import": {
         "default": "./dist/esm/presets/next-app.js",
-        "types": "./dist/esm/src/presets/next-app.d.ts"
+        "types": "./dist/esm/presets/next-app.d.ts"
       },
       "require": {
         "default": "./dist/cjs/presets/next-app.cjs",
-        "types": "./dist/cjs/src/presets/next-app.d.ts"
+        "types": "./dist/cjs/presets/next-app.d.ts"
       }
     },
     "./utils/composer": {
       "import": {
         "default": "./dist/esm/utils/composer.js",
-        "types": "./dist/esm/src/utils/composer.d.ts"
+        "types": "./dist/esm/utils/composer.d.ts"
       },
       "require": {
         "default": "./dist/cjs/utils/composer.cjs",
-        "types": "./dist/cjs/src/utils/composer.d.ts"
+        "types": "./dist/cjs/utils/composer.d.ts"
       }
     },
     "./core/security": {
       "import": {
         "default": "./dist/esm/core/security.js",
-        "types": "./dist/esm/src/core/security.d.ts"
+        "types": "./dist/esm/core/security.d.ts"
       },
       "require": {
         "default": "./dist/cjs/core/security.cjs",
-        "types": "./dist/cjs/src/core/security.d.ts"
+        "types": "./dist/cjs/core/security.d.ts"
       }
     },
     "./core/unicorn": {
       "import": {
         "default": "./dist/esm/core/unicorn.js",
-        "types": "./dist/esm/src/core/unicorn.d.ts"
+        "types": "./dist/esm/core/unicorn.d.ts"
       },
       "require": {
         "default": "./dist/cjs/core/unicorn.cjs",
-        "types": "./dist/cjs/src/core/unicorn.d.ts"
+        "types": "./dist/cjs/core/unicorn.d.ts"
       }
     },
     "./core/import": {
       "import": {
         "default": "./dist/esm/core/import.js",
-        "types": "./dist/esm/src/core/import.d.ts"
+        "types": "./dist/esm/core/import.d.ts"
       },
       "require": {
         "default": "./dist/cjs/core/import.cjs",
-        "types": "./dist/cjs/src/core/import.d.ts"
+        "types": "./dist/cjs/core/import.d.ts"
       }
     },
     "./testing/jest": {
       "import": {
         "default": "./dist/esm/testing/jest.js",
-        "types": "./dist/esm/src/testing/jest.d.ts"
+        "types": "./dist/esm/testing/jest.d.ts"
       },
       "require": {
         "default": "./dist/cjs/testing/jest.cjs",
-        "types": "./dist/cjs/src/testing/jest.d.ts"
+        "types": "./dist/cjs/testing/jest.d.ts"
       }
     },
     "./frameworks/jsx-a11y": {
       "import": {
         "default": "./dist/esm/frameworks/jsx-a11y.js",
-        "types": "./dist/esm/src/frameworks/jsx-a11y.d.ts"
+        "types": "./dist/esm/frameworks/jsx-a11y.d.ts"
       },
       "require": {
         "default": "./dist/cjs/frameworks/jsx-a11y.cjs",
-        "types": "./dist/cjs/src/frameworks/jsx-a11y.d.ts"
+        "types": "./dist/cjs/frameworks/jsx-a11y.d.ts"
       }
     },
     "./utils/only-warn": {
       "import": {
         "default": "./dist/esm/utils/only-warn.js",
-        "types": "./dist/esm/src/utils/only-warn.d.ts"
+        "types": "./dist/esm/utils/only-warn.d.ts"
       },
       "require": {
         "default": "./dist/cjs/utils/only-warn.cjs",
-        "types": "./dist/cjs/src/utils/only-warn.d.ts"
+        "types": "./dist/cjs/utils/only-warn.d.ts"
       }
     },
     "./utils/prettier": {
       "import": {
         "default": "./dist/esm/utils/prettier.js",
-        "types": "./dist/esm/src/utils/prettier.d.ts"
+        "types": "./dist/esm/utils/prettier.d.ts"
       },
       "require": {
         "default": "./dist/cjs/utils/prettier.cjs",
-        "types": "./dist/cjs/src/utils/prettier.d.ts"
+        "types": "./dist/cjs/utils/prettier.d.ts"
       }
     },
     "./utils/turbo": {
       "import": {
         "default": "./dist/esm/utils/turbo.js",
-        "types": "./dist/esm/src/utils/turbo.d.ts"
+        "types": "./dist/esm/utils/turbo.d.ts"
       },
       "require": {
         "default": "./dist/cjs/utils/turbo.cjs",
-        "types": "./dist/cjs/src/utils/turbo.d.ts"
+        "types": "./dist/cjs/utils/turbo.d.ts"
       }
     }
   },

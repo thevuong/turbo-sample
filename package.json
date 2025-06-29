@@ -13,10 +13,8 @@
     "dev": "turbo dev",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "postinstall": "simple-git-hooks",
     "lint": "turbo lint",
     "lint:fix": "turbo lint -- --fix",
-    "prepare": "simple-git-hooks",
     "test": "turbo test"
   },
   "devDependencies": {

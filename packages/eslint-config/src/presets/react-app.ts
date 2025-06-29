@@ -15,6 +15,7 @@ import { markdownRules } from "@/languages/markdown";
 import { jestRules } from "@/testing/jest";
 import { composeConfig } from "@/utils/composer";
 
+
 // React app preset - configuration for React applications
 export const reactAppPreset: Linter.Config[] = composeConfig(
   baseJavaScriptRules,

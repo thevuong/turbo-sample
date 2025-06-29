@@ -280,7 +280,6 @@
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^5.1.0",
     "eslint-plugin-security": "^3.0.1",
-    "eslint-plugin-sonarjs": "^2.0.4",
     "eslint-plugin-turbo": "^2.3.3",
     "eslint-plugin-unicorn": "^56.0.1",
     "globals": "^16.2.0",

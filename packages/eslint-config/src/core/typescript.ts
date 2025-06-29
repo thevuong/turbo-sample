@@ -1,12 +1,12 @@
-import tseslint from "typescript-eslint";
+import { configs as tseslintConfigs } from "typescript-eslint";
 
 import type { Linter } from "eslint";
 
 // TypeScript-specific rules with modern practices
 export const typescriptRules: Linter.Config[] = [
   // Basic TypeScript rules for all TypeScript files
-  ...(tseslint.configs.recommended as Linter.Config[]),
-  ...(tseslint.configs.stylistic as Linter.Config[]),
+  ...(tseslintConfigs.recommended as Linter.Config[]),
+  ...(tseslintConfigs.stylistic as Linter.Config[]),
   // Type-checked rules only for TypeScript files with proper parser options
   {
     files: ["**/*.{ts,mts,cts,tsx}"],
@@ -23,7 +23,6 @@ export const typescriptRules: Linter.Config[] = [
       "@typescript-eslint/no-floating-promises": "error",
       "@typescript-eslint/no-misused-promises": "error",
       "@typescript-eslint/prefer-readonly": "error",
-      // "@typescript-eslint/prefer-readonly-parameter-types": "warn",
       "@typescript-eslint/prefer-string-starts-ends-with": "error",
       "@typescript-eslint/prefer-includes": "error",
       "@typescript-eslint/prefer-for-of": "error",

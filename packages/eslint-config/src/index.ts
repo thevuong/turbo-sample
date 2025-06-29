@@ -20,14 +20,4 @@ export { reactAppPreset } from '@/presets/react-app';
 export { nextAppPreset } from '@/presets/next-app';
 
 // Utility exports
-export { composeConfig, createCustomConfig } from '@/utils/composer';
-export type { ConfigOptions } from '@/utils/composer';
-
-// Backward compatibility exports
-export { basePreset as baseConfig } from '@/presets/base';
-export { reactAppPreset as reactConfig } from '@/presets/react-app';
-export { nextAppPreset as nextConfig } from '@/presets/next-app';
-export { libraryPreset as libraryConfig } from '@/presets/library';
-
-// Default export is the base preset
-export { basePreset as default } from '@/presets/base';
+export { composeConfig } from '@/utils/composer';

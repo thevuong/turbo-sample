@@ -16,11 +16,9 @@
     "**/*.tsx"
   ],
   "exclude": [
-    [
-      "node_modules",
-      "dist",
-      ".turbo",
-      "coverage"
-    ]
+    "node_modules",
+    "dist",
+    ".turbo",
+    "coverage"
   ]
 }

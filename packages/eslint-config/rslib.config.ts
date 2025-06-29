@@ -3,35 +3,38 @@ import { defineConfig } from '@rslib/core';
 export default defineConfig({
   lib: [
     {
-      format: 'esm',
-      syntax: 'es2021',
-      dts: true,
       bundle: false,
+      dts: true,
+      format: 'esm',
       output: {
         distPath: {
           root: "./dist/esm",
         },
       },
+      syntax: 'es2021',
     },
     {
-      format: 'cjs',
-      syntax: 'es2021',
-      dts: true,
       bundle: false,
+      dts: true,
+      format: 'cjs',
       output: {
         distPath: {
           root: "./dist/cjs",
         },
       },
+      syntax: 'es2021',
     },
   ],
-  source: {
-    entry: {
-      index: ["./src/**/*.{ts,tsx}", "!./src/**/*.{test,spec}.{ts,tsx}"],
-    },
-    tsconfigPath: "./tsconfig.build.json",
-  },
   output: {
     target: 'node',
+  },
+  performance: {
+    printFileSize: false
+  },
+  source: {
+    entry: {
+      index: ["./src/**/*.{ts,tsx}", "!./src/**/*.{test,spec}.{ts,tsx}"]
+    },
+    tsconfigPath: "./tsconfig.build.json"
   },
 });

@@ -1,1 +1,0 @@
-export { libraryConfig as default } from './index';

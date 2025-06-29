@@ -17,42 +17,182 @@
     },
     "./base": {
       "import": {
-        "default": "./dist/esm/base.js",
-        "types": "./dist/esm/base.d.ts"
+        "default": "./dist/esm/presets/base.js",
+        "types": "./dist/esm/presets/base.d.ts"
       },
       "require": {
-        "default": "./dist/cjs/base.cjs",
-        "types": "./dist/cjs/base.d.ts"
+        "default": "./dist/cjs/presets/base.cjs",
+        "types": "./dist/cjs/presets/base.d.ts"
       }
     },
     "./react": {
       "import": {
-        "default": "./dist/esm/react.js",
-        "types": "./dist/esm/react.d.ts"
+        "default": "./dist/esm/presets/react-app.js",
+        "types": "./dist/esm/presets/react-app.d.ts"
       },
       "require": {
-        "default": "./dist/cjs/react.cjs",
-        "types": "./dist/cjs/react.d.ts"
+        "default": "./dist/cjs/presets/react-app.cjs",
+        "types": "./dist/cjs/presets/react-app.d.ts"
       }
     },
     "./next": {
       "import": {
-        "default": "./dist/esm/next.js",
-        "types": "./dist/esm/next.d.ts"
+        "default": "./dist/esm/presets/next-app.js",
+        "types": "./dist/esm/presets/next-app.d.ts"
       },
       "require": {
-        "default": "./dist/cjs/next.cjs",
-        "types": "./dist/cjs/next.d.ts"
+        "default": "./dist/cjs/presets/next-app.cjs",
+        "types": "./dist/cjs/presets/next-app.d.ts"
       }
     },
     "./library": {
       "import": {
-        "default": "./dist/esm/library.js",
-        "types": "./dist/esm/library.d.ts"
+        "default": "./dist/esm/presets/library.js",
+        "types": "./dist/esm/presets/library.d.ts"
       },
       "require": {
-        "default": "./dist/cjs/library.cjs",
-        "types": "./dist/cjs/library.d.ts"
+        "default": "./dist/cjs/presets/library.cjs",
+        "types": "./dist/cjs/presets/library.d.ts"
+      }
+    },
+    "./core/base": {
+      "import": {
+        "default": "./dist/esm/core/base.js",
+        "types": "./dist/esm/core/base.d.ts"
+      },
+      "require": {
+        "default": "./dist/cjs/core/base.cjs",
+        "types": "./dist/cjs/core/base.d.ts"
+      }
+    },
+    "./core/typescript": {
+      "import": {
+        "default": "./dist/esm/core/typescript.js",
+        "types": "./dist/esm/core/typescript.d.ts"
+      },
+      "require": {
+        "default": "./dist/cjs/core/typescript.cjs",
+        "types": "./dist/cjs/core/typescript.d.ts"
+      }
+    },
+    "./environments/node": {
+      "import": {
+        "default": "./dist/esm/environments/node.js",
+        "types": "./dist/esm/environments/node.d.ts"
+      },
+      "require": {
+        "default": "./dist/cjs/environments/node.cjs",
+        "types": "./dist/cjs/environments/node.d.ts"
+      }
+    },
+    "./environments/browser": {
+      "import": {
+        "default": "./dist/esm/environments/browser.js",
+        "types": "./dist/esm/environments/browser.d.ts"
+      },
+      "require": {
+        "default": "./dist/cjs/environments/browser.cjs",
+        "types": "./dist/cjs/environments/browser.d.ts"
+      }
+    },
+    "./languages/json": {
+      "import": {
+        "default": "./dist/esm/languages/json.js",
+        "types": "./dist/esm/languages/json.d.ts"
+      },
+      "require": {
+        "default": "./dist/cjs/languages/json.cjs",
+        "types": "./dist/cjs/languages/json.d.ts"
+      }
+    },
+    "./languages/markdown": {
+      "import": {
+        "default": "./dist/esm/languages/markdown.js",
+        "types": "./dist/esm/languages/markdown.d.ts"
+      },
+      "require": {
+        "default": "./dist/cjs/languages/markdown.cjs",
+        "types": "./dist/cjs/languages/markdown.d.ts"
+      }
+    },
+    "./languages/css": {
+      "import": {
+        "default": "./dist/esm/languages/css.js",
+        "types": "./dist/esm/languages/css.d.ts"
+      },
+      "require": {
+        "default": "./dist/cjs/languages/css.cjs",
+        "types": "./dist/cjs/languages/css.d.ts"
+      }
+    },
+    "./frameworks/react": {
+      "import": {
+        "default": "./dist/esm/frameworks/react.js",
+        "types": "./dist/esm/frameworks/react.d.ts"
+      },
+      "require": {
+        "default": "./dist/cjs/frameworks/react.cjs",
+        "types": "./dist/cjs/frameworks/react.d.ts"
+      }
+    },
+    "./frameworks/next": {
+      "import": {
+        "default": "./dist/esm/frameworks/next.js",
+        "types": "./dist/esm/frameworks/next.d.ts"
+      },
+      "require": {
+        "default": "./dist/cjs/frameworks/next.cjs",
+        "types": "./dist/cjs/frameworks/next.d.ts"
+      }
+    },
+    "./presets/base": {
+      "import": {
+        "default": "./dist/esm/presets/base.js",
+        "types": "./dist/esm/presets/base.d.ts"
+      },
+      "require": {
+        "default": "./dist/cjs/presets/base.cjs",
+        "types": "./dist/cjs/presets/base.d.ts"
+      }
+    },
+    "./presets/library": {
+      "import": {
+        "default": "./dist/esm/presets/library.js",
+        "types": "./dist/esm/presets/library.d.ts"
+      },
+      "require": {
+        "default": "./dist/cjs/presets/library.cjs",
+        "types": "./dist/cjs/presets/library.d.ts"
+      }
+    },
+    "./presets/react-app": {
+      "import": {
+        "default": "./dist/esm/presets/react-app.js",
+        "types": "./dist/esm/presets/react-app.d.ts"
+      },
+      "require": {
+        "default": "./dist/cjs/presets/react-app.cjs",
+        "types": "./dist/cjs/presets/react-app.d.ts"
+      }
+    },
+    "./presets/next-app": {
+      "import": {
+        "default": "./dist/esm/presets/next-app.js",
+        "types": "./dist/esm/presets/next-app.d.ts"
+      },
+      "require": {
+        "default": "./dist/cjs/presets/next-app.cjs",
+        "types": "./dist/cjs/presets/next-app.d.ts"
+      }
+    },
+    "./utils/composer": {
+      "import": {
+        "default": "./dist/esm/utils/composer.js",
+        "types": "./dist/esm/utils/composer.d.ts"
+      },
+      "require": {
+        "default": "./dist/cjs/utils/composer.cjs",
+        "types": "./dist/cjs/utils/composer.d.ts"
       }
     }
   },

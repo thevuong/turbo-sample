@@ -1,1 +1,0 @@
-export { nextConfig as default } from './index';

@@ -1,4 +1,5 @@
 import tseslint from "typescript-eslint";
+
 import type { Linter } from "eslint";
 
 // TypeScript-specific rules with modern practices

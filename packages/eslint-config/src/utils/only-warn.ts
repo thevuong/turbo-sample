@@ -1,4 +1,5 @@
 import pluginOnlyWarn from "eslint-plugin-only-warn";
+
 import type { Linter } from "eslint";
 
 // Only warn configuration - converts all errors to warnings

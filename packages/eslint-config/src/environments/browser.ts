@@ -1,4 +1,5 @@
 import globals from "globals";
+
 import type { Linter } from "eslint";
 
 // Browser environment configuration

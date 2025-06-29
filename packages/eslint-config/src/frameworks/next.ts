@@ -1,4 +1,5 @@
 import pluginNext from "@next/eslint-plugin-next";
+
 import type { Linter } from "eslint";
 
 // Next.js framework configuration

@@ -1,4 +1,5 @@
 import js from "@eslint/js";
+
 import type { Linter } from "eslint";
 
 // Core JavaScript rules - foundation for all configurations with modern practices

@@ -1,6 +1,7 @@
+import type { Linter } from "eslint";
+
 import { basePreset } from "@/presets/base";
 import { composeConfig } from "@/utils/composer";
-import type { Linter } from "eslint";
 
 // Library preset - stricter rules for library development
 const libraryStrictRules: Linter.Config[] = [

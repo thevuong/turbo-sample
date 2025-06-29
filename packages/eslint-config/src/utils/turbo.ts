@@ -1,4 +1,5 @@
 import pluginTurbo from "eslint-plugin-turbo";
+
 import type { Linter } from "eslint";
 
 // Turbo configuration - linting rules for Turborepo monorepos

@@ -1,3 +1,1 @@
-import { libraryPreset } from "@eslint-sample/eslint-config";
-
-export default libraryPreset;
+export { libraryPreset as default } from "@eslint-sample/eslint-config";

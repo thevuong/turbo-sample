@@ -1,4 +1,5 @@
 import css from "@eslint/css";
+
 import type { Linter } from "eslint";
 
 // CSS file configuration

@@ -193,6 +193,66 @@
         "default": "./dist/cjs/utils/composer.cjs",
         "types": "./dist/cjs/utils/composer.d.ts"
       }
+    },
+    "./core/security": {
+      "import": {
+        "default": "./dist/esm/core/security.js",
+        "types": "./dist/esm/core/security.d.ts"
+      },
+      "require": {
+        "default": "./dist/cjs/core/security.cjs",
+        "types": "./dist/cjs/core/security.d.ts"
+      }
+    },
+    "./core/sonarjs": {
+      "import": {
+        "default": "./dist/esm/core/sonarjs.js",
+        "types": "./dist/esm/core/sonarjs.d.ts"
+      },
+      "require": {
+        "default": "./dist/cjs/core/sonarjs.cjs",
+        "types": "./dist/cjs/core/sonarjs.d.ts"
+      }
+    },
+    "./core/unicorn": {
+      "import": {
+        "default": "./dist/esm/core/unicorn.js",
+        "types": "./dist/esm/core/unicorn.d.ts"
+      },
+      "require": {
+        "default": "./dist/cjs/core/unicorn.cjs",
+        "types": "./dist/cjs/core/unicorn.d.ts"
+      }
+    },
+    "./core/import": {
+      "import": {
+        "default": "./dist/esm/core/import.js",
+        "types": "./dist/esm/core/import.d.ts"
+      },
+      "require": {
+        "default": "./dist/cjs/core/import.cjs",
+        "types": "./dist/cjs/core/import.d.ts"
+      }
+    },
+    "./testing/jest": {
+      "import": {
+        "default": "./dist/esm/testing/jest.js",
+        "types": "./dist/esm/testing/jest.d.ts"
+      },
+      "require": {
+        "default": "./dist/cjs/testing/jest.cjs",
+        "types": "./dist/cjs/testing/jest.d.ts"
+      }
+    },
+    "./frameworks/jsx-a11y": {
+      "import": {
+        "default": "./dist/esm/frameworks/jsx-a11y.js",
+        "types": "./dist/esm/frameworks/jsx-a11y.d.ts"
+      },
+      "require": {
+        "default": "./dist/cjs/frameworks/jsx-a11y.cjs",
+        "types": "./dist/cjs/frameworks/jsx-a11y.d.ts"
+      }
     }
   },
   "main": "./dist/index.js",
@@ -212,10 +272,16 @@
     "@next/eslint-plugin-next": "^15.1.0",
     "eslint": "^9.30.0",
     "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-jest": "^28.10.0",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
     "eslint-plugin-only-warn": "^1.1.0",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^5.1.0",
+    "eslint-plugin-security": "^3.0.1",
+    "eslint-plugin-sonarjs": "^2.0.4",
     "eslint-plugin-turbo": "^2.3.3",
+    "eslint-plugin-unicorn": "^56.0.1",
     "globals": "^16.2.0",
     "typescript-eslint": "^8.35.0"
   },

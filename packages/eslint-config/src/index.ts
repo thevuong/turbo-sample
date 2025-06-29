@@ -9,6 +9,9 @@ export { markdownRules } from '@/languages/markdown';
 export { cssRules } from '@/languages/css';
 export { reactRules } from '@/frameworks/react';
 export { nextRules } from '@/frameworks/next';
+export { onlyWarnRules } from '@/utils/only-warn';
+export { prettierRules } from '@/utils/prettier';
+export { turboRules } from '@/utils/turbo';
 
 // Preset exports
 export { basePreset } from '@/presets/base';

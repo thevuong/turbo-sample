@@ -1,6 +1,6 @@
-import { join } from "node:path";
+import path from "node:path";
 
-import type { ExportGenerator, ExportGeneratorOptions, Logger, PackageExport } from "@/types/index.js";
+import type { ExportGenerator, ExportGeneratorOptions, Logger, PackageExport } from "@/types.js";
 
 /**
  * Export generator service implementation for creating package.json exports
@@ -121,20 +121,24 @@ export class StandardExportGenerator implements ExportGenerator {
 
     const exportConfig: any = {
       import: {
-        default: this.ensureRelativePath(join(options.distDir, options.esmDir, `${basePath}${options.extensions.esm}`)),
+        default: this.ensureRelativePath(
+          path.join(options.distDir, options.esmDir, `${basePath}${options.extensions.esm}`),
+        ),
       },
       require: {
-        default: this.ensureRelativePath(join(options.distDir, options.cjsDir, `${basePath}${options.extensions.cjs}`)),
+        default: this.ensureRelativePath(
+          path.join(options.distDir, options.cjsDir, `${basePath}${options.extensions.cjs}`),
+        ),
       },
     };
 
     // Add TypeScript definitions if available
     if (exp.hasTypes) {
       exportConfig.import.types = this.ensureRelativePath(
-        join(options.distDir, options.esmDir, `${basePath}${options.extensions.types}`),
+        path.join(options.distDir, options.esmDir, `${basePath}${options.extensions.types}`),
       );
       exportConfig.require.types = this.ensureRelativePath(
-        join(options.distDir, options.cjsDir, `${basePath}${options.extensions.types}`),
+        path.join(options.distDir, options.cjsDir, `${basePath}${options.extensions.types}`),
       );
     }
 
@@ -147,7 +151,7 @@ export class StandardExportGenerator implements ExportGenerator {
     const format = options.esmDir;
     const extension = options.extensions.esm;
 
-    return this.ensureRelativePath(join(options.distDir, format, `${basePath}${extension}`));
+    return this.ensureRelativePath(path.join(options.distDir, format, `${basePath}${extension}`));
   }
 
   private getBasePath(sourcePath: string): string {

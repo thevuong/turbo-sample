@@ -1,9 +1,9 @@
-import { basename, dirname, extname, join } from "node:path";
+import path from "node:path";
 
 import { pathExists } from "fs-extra";
 import { glob } from "glob";
 
-import type { FileScanner, Logger, PackageExport } from "@/types/index";
+import type { FileScanner, Logger, PackageExport } from "@/types";
 
 /**
  * File scanner service implementation for detecting exportable files
@@ -104,7 +104,7 @@ export class GlobFileScanner implements FileScanner {
           key: exportKey,
           sourcePath: file,
           dualFormat,
-          hasTypes: extname(file) === ".ts",
+          hasTypes: path.extname(file) === ".ts",
         });
       }
     }
@@ -149,8 +149,8 @@ export class GlobFileScanner implements FileScanner {
     key = key.replace(/\.(ts|js)$/, "");
 
     // Handle index files
-    if (basename(key) === "index") {
-      const dir = dirname(key);
+    if (path.basename(key) === "index") {
+      const dir = path.dirname(key);
       key = dir === "." ? "." : `./${dir}`;
     } else {
       key = `./${key}`;
@@ -160,7 +160,7 @@ export class GlobFileScanner implements FileScanner {
   }
 
   private generateExportKeyFromJson(filePath: string): string {
-    const name = basename(filePath, ".json");
+    const name = path.basename(filePath, ".json");
     return `./${name}`;
   }
 
@@ -176,7 +176,7 @@ export class GlobFileScanner implements FileScanner {
     ];
 
     for (const config of buildConfigs) {
-      if (await pathExists(join(packagePath, config))) {
+      if (await pathExists(path.join(packagePath, config))) {
         return true;
       }
     }
@@ -187,13 +187,13 @@ export class GlobFileScanner implements FileScanner {
   private categorizeExport(exp: PackageExport): string {
     const path = exp.sourcePath.toLowerCase();
 
-    if (path.includes("preset")) return "presets";
-    if (path.includes("core")) return "core";
-    if (path.includes("util")) return "utils";
-    if (path.includes("framework")) return "frameworks";
-    if (path.includes("environment")) return "environments";
-    if (path.includes("language")) return "languages";
-    if (path.includes("test")) return "testing";
+    if (Boolean(path.includes("preset"))) return "presets";
+    if (Boolean(path.includes("core"))) return "core";
+    if (Boolean(path.includes("util"))) return "utils";
+    if (Boolean(path.includes("framework"))) return "frameworks";
+    if (Boolean(path.includes("environment"))) return "environments";
+    if (Boolean(path.includes("language"))) return "languages";
+    if (Boolean(path.includes("test"))) return "testing";
 
     return "misc";
   }

@@ -3,7 +3,9 @@ import { afterEach, beforeEach, describe, expect, jest, test } from "@jest/globa
 import { ConsoleLogger, createLogger } from "@/services/logger";
 
 // Mock console methods
-const mockConsoleLog = jest.spyOn(console, "log").mockImplementation(() => {});
+const mockConsoleLog = jest.spyOn(console, "log").mockImplementation(() => {
+  // Intentionally empty for testing
+});
 
 describe("Logger Service", () => {
   let logger: ConsoleLogger;

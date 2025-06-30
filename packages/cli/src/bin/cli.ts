@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { readFileSync } from "node:fs";
-import { dirname, join } from "node:path";
+import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { Command } from "commander";
@@ -10,16 +10,14 @@ import { Command } from "commander";
 import { createGenerateExportsCommand, type GenerateExportsOptions } from "@/commands/generate-exports";
 import { createExportGenerator } from "@/services/export-generator";
 import { createFileScanner } from "@/services/file-scanner";
-
-// Import commands
 import { createLogger } from "@/services/logger";
 import { createPackageManager } from "@/services/package-manager";
 
 // Get package info
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-const packageJsonPath = join(__dirname, "../../package.json");
-const packageJson = JSON.parse(readFileSync(packageJsonPath, "utf-8"));
+const __dirname = path.dirname(__filename);
+const packageJsonPath = path.join(__dirname, "../../package.json");
+const packageJson = JSON.parse(readFileSync(packageJsonPath, "utf8"));
 
 /**
  * Main CLI application
@@ -57,7 +55,7 @@ class CLIApplication {
       .hook("preAction", thisCommand => {
         // Global options handling
         const options = thisCommand.opts();
-        if (options["noColor"]) {
+        if (Boolean(options["noColor"])) {
           process.env["FORCE_COLOR"] = "0";
         }
       });
@@ -112,9 +110,7 @@ class CLIApplication {
           };
 
           // Validate options
-          if (command.validateOptions) {
-            command.validateOptions(commandOptions);
-          }
+          command.validateOptions?.(commandOptions);
 
           await command.execute(commandOptions);
         } catch (error) {

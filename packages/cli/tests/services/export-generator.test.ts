@@ -3,7 +3,7 @@ import { beforeEach, describe, expect, jest, test } from "@jest/globals";
 import { createExportGenerator, DEFAULT_EXPORT_OPTIONS, StandardExportGenerator } from "@/services/export-generator";
 import { createLogger } from "@/services/logger";
 
-import type { ExportGeneratorOptions, Logger, PackageExport } from "@/types/index";
+import type { ExportGeneratorOptions, Logger, PackageExport } from "@/types";
 
 describe("ExportGenerator Service", () => {
   let logger: Logger;
@@ -12,11 +12,21 @@ describe("ExportGenerator Service", () => {
   beforeEach(() => {
     logger = createLogger();
     // Mock logger methods to avoid console output during tests
-    jest.spyOn(logger, "startSpinner").mockImplementation(() => {});
-    jest.spyOn(logger, "stopSpinner").mockImplementation(() => {});
-    jest.spyOn(logger, "failSpinner").mockImplementation(() => {});
-    jest.spyOn(logger, "warn").mockImplementation(() => {});
-    jest.spyOn(logger, "error").mockImplementation(() => {});
+    jest.spyOn(logger, "startSpinner").mockImplementation(() => {
+      // Intentionally empty for testing
+    });
+    jest.spyOn(logger, "stopSpinner").mockImplementation(() => {
+      // Intentionally empty for testing
+    });
+    jest.spyOn(logger, "failSpinner").mockImplementation(() => {
+      // Intentionally empty for testing
+    });
+    jest.spyOn(logger, "warn").mockImplementation(() => {
+      // Intentionally empty for testing
+    });
+    jest.spyOn(logger, "error").mockImplementation(() => {
+      // Intentionally empty for testing
+    });
 
     generator = new StandardExportGenerator(logger);
   });

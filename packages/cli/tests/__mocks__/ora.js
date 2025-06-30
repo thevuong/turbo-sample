@@ -1,3 +1,6 @@
+/* global jest */
+
+/** @returns {object} */
 const createMockSpinner = () => ({
   start: jest.fn().mockReturnThis(),
   stop: jest.fn().mockReturnThis(),

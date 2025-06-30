@@ -2,7 +2,7 @@ import { join } from "node:path";
 
 import { pathExists, readJson, writeJson } from "fs-extra";
 
-import type { Logger, PackageJson, PackageManager } from "@/types/index";
+import type { Logger, PackageJson, PackageManager } from "@/types";
 
 /**
  * Package manager service implementation for handling package.json operations

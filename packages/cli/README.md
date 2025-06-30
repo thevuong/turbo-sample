@@ -259,7 +259,7 @@ Each service is dependency-injected and follows single responsibility principle.
 
 ### Monorepo Structure
 
-```
+```text
 my-monorepo/
 ├── packages/
 │   ├── eslint-config/

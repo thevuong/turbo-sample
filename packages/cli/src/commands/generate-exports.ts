@@ -1,17 +1,10 @@
-import { join, resolve } from "node:path";
+import path from "node:path";
 
 import { pathExists } from "fs-extra";
 
 import { DEFAULT_EXPORT_OPTIONS } from "@/services/export-generator";
 
-import type {
-  CLICommand,
-  ExportGenerator,
-  ExportGeneratorOptions,
-  FileScanner,
-  Logger,
-  PackageManager,
-} from "@/types/index";
+import type { CLICommand, ExportGenerator, ExportGeneratorOptions, FileScanner, Logger, PackageManager } from "@/types";
 
 export interface GenerateExportsOptions {
   /** Target package path or name */
@@ -108,7 +101,7 @@ export class GenerateExportsCommand implements CLICommand {
 
     // Check if it's a relative path
     if (packageInput.startsWith("./") || packageInput.startsWith("../")) {
-      const resolvedPath = resolve(process.cwd(), packageInput);
+      const resolvedPath = path.resolve(process.cwd(), packageInput);
       if (await pathExists(resolvedPath)) {
         return resolvedPath;
       }
@@ -116,8 +109,8 @@ export class GenerateExportsCommand implements CLICommand {
     }
 
     // Assume it's a package name in packages directory
-    const packagesDir = join(process.cwd(), "packages");
-    const packagePath = join(packagesDir, packageInput);
+    const packagesDir = path.join(process.cwd(), "packages");
+    const packagePath = path.join(packagesDir, packageInput);
 
     if (await pathExists(packagePath)) {
       return packagePath;
@@ -129,7 +122,7 @@ export class GenerateExportsCommand implements CLICommand {
   private async discoverPackages(): Promise<string[]> {
     this.logger.startSpinner("Discovering packages...");
 
-    const packagesDir = join(process.cwd(), "packages");
+    const packagesDir = path.join(process.cwd(), "packages");
 
     if (!(await pathExists(packagesDir))) {
       this.logger.failSpinner("No packages directory found");
@@ -143,8 +136,8 @@ export class GenerateExportsCommand implements CLICommand {
 
     for (const entry of entries) {
       if (entry.isDirectory()) {
-        const packagePath = join(packagesDir, entry.name);
-        const packageJsonPath = join(packagePath, "package.json");
+        const packagePath = path.join(packagesDir, entry.name);
+        const packageJsonPath = path.join(packagePath, "package.json");
 
         if (await pathExists(packageJsonPath)) {
           packages.push(packagePath);

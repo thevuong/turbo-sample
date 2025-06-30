@@ -27,6 +27,7 @@ export default defineConfig({
   ],
   output: {
     target: "node",
+    sourceMap: true,
   },
   performance: {
     printFileSize: false,

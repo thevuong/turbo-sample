@@ -4,7 +4,6 @@
   "extends": "@eslint-sample/typescript-config/base",
   "compilerOptions": {
     "emitDeclarationOnly": false,
-    "incremental": true,
     "lib": ["ES2022"],
     "noEmit": false,
     "outDir": "./dist",

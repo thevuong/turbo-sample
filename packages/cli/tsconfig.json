@@ -1,0 +1,12 @@
+{
+  "extends": "@eslint-sample/typescript-config/library",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "outDir": "./dist",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": ["src/**/*", "tests/**/*", "*.ts"],
+  "exclude": ["node_modules", "dist", ".turbo", "coverage"]
+}

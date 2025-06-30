@@ -22,6 +22,35 @@ export const unicornRules: Linter.Config[] = [
           },
         },
       ],
+      "unicorn/import-style": [
+        "error",
+        {
+          styles: {
+            path: {
+              named: true,
+            },
+          },
+        },
+      ],
+      "unicorn/no-array-reduce": "off", // Reduce is useful in many cases
+      "unicorn/no-null": "off", // Allow null for compatibility
+      "unicorn/no-process-exit": "off", // Not always appropriate
+      "unicorn/prefer-array-flat-map": "error", // Allow CommonJS when needed
+      "unicorn/prefer-array-some": "error", // Allow process.exit in Node.js apps
+      "unicorn/prefer-date-now": "error", // Use node: protocol for built-ins
+      "unicorn/prefer-default-parameters": "error",
+      "unicorn/prefer-includes": "error",
+      "unicorn/prefer-math-trunc": "error",
+      "unicorn/prefer-modern-math-apis": "error",
+      "unicorn/prefer-module": "off",
+      "unicorn/prefer-node-protocol": "error",
+      "unicorn/prefer-number-properties": "error",
+      "unicorn/prefer-optional-catch-binding": "error",
+      "unicorn/prefer-string-slice": "error",
+      "unicorn/prefer-string-starts-ends-with": "error",
+      "unicorn/prefer-string-trim-start-end": "error",
+      "unicorn/prefer-ternary": "error",
+      "unicorn/prefer-top-level-await": "off",
       "unicorn/prevent-abbreviations": [
         "error",
         {
@@ -38,25 +67,6 @@ export const unicornRules: Linter.Config[] = [
           },
         },
       ],
-      "unicorn/no-array-reduce": "off", // Reduce is useful in many cases
-      "unicorn/no-null": "off", // Allow null for compatibility
-      "unicorn/prefer-top-level-await": "off", // Not always appropriate
-      "unicorn/prefer-module": "off", // Allow CommonJS when needed
-      "unicorn/no-process-exit": "off", // Allow process.exit in Node.js apps
-      "unicorn/prefer-node-protocol": "error", // Use node: protocol for built-ins
-      "unicorn/prefer-string-slice": "error",
-      "unicorn/prefer-array-flat-map": "error",
-      "unicorn/prefer-array-some": "error",
-      "unicorn/prefer-date-now": "error",
-      "unicorn/prefer-default-parameters": "error",
-      "unicorn/prefer-includes": "error",
-      "unicorn/prefer-math-trunc": "error",
-      "unicorn/prefer-modern-math-apis": "error",
-      "unicorn/prefer-number-properties": "error",
-      "unicorn/prefer-optional-catch-binding": "error",
-      "unicorn/prefer-string-starts-ends-with": "error",
-      "unicorn/prefer-string-trim-start-end": "error",
-      "unicorn/prefer-ternary": "error",
       "unicorn/throw-new-error": "error",
     },
   },

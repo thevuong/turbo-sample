@@ -12,7 +12,7 @@ export const typescriptRules: Linter.Config[] = [
     files: ["**/*.{ts,mts,cts,tsx}"],
     languageOptions: {
       parserOptions: {
-        project: true,
+        project: "./tsconfig.json",
       },
     },
     rules: {

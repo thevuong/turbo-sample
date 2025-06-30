@@ -1,17 +1,17 @@
 # @eslint-sample/typescript-config
 
-Shared TypeScript configurations for different project types in the monorepo. This package provides optimized
+Shared TypeScript configurations for different project types. This package provides optimized
 `tsconfig.json` configurations that can be extended for various use cases including libraries, React applications,
 Next.js applications, and base projects.
 
 ## Features
 
-- 🎯 **Multiple Configurations**: Tailored configs for different project types
-- 🚀 **Modern TypeScript**: Supports latest TypeScript features and best practices
-- 📦 **Extensible**: Easy to extend and customize for specific needs
-- 🔧 **Strict Mode**: Enforces strict type checking for better code quality
-- ⚛️ **Framework Ready**: Specialized configurations for React and Next.js
-- 📚 **Library Optimized**: Dedicated configuration for library development
+- 🎯 **Multiple Configurations**: Four tailored configs for different project types
+- 🚀 **Modern TypeScript**: Uses ES2022 target with ESNext modules and bundler resolution
+- 📦 **Extensible**: All configurations extend from a common base configuration
+- 🔧 **Strict Mode**: Comprehensive strict type checking enabled by default
+- ⚛️ **Framework Ready**: Specialized configurations for React and Next.js with proper JSX handling
+- 📚 **Library Optimized**: Dedicated configuration with build output and path mapping
 
 ## Installation
 
@@ -77,37 +77,43 @@ The base configuration provides:
 
 - **Target**: ES2022 for modern JavaScript features
 - **Module**: ESNext with bundler resolution
-- **Strict Mode**: All strict checks enabled
-- **Path Mapping**: Support for `@/` alias pointing to `src/`
-- **Declaration**: Generates `.d.ts` files
+- **Strict Mode**: Comprehensive strict checks including `exactOptionalPropertyTypes`, `noUncheckedIndexedAccess`
+- **Libraries**: ES2022 standard library
+- **Declaration**: Generates `.d.ts` files and declaration maps
 - **Source Maps**: Enabled for debugging
+- **Includes**: All TypeScript and TSX files
+- **Excludes**: node_modules, dist, build, coverage, test files
 
 ### Library Configuration
 
 Extends base configuration with:
 
-- **Declaration**: Always generates type definitions
-- **Declaration Maps**: For better IDE support
-- **Composite**: Enabled for project references
-- **Output Directory**: Configured for library builds
+- **Output Directory**: `./dist` for build output
+- **Path Mapping**: `@/*` alias pointing to `./src/*`
+- **Incremental**: Enabled for faster builds
+- **Strip Internal**: Removes internal declarations from output
+- **Additional Excludes**: Stories, tests, and mock directories
 
 ### React Configuration
 
 Extends base configuration with:
 
-- **JSX**: React JSX transform
-- **DOM Libraries**: Includes DOM and DOM.Iterable
-- **Module Resolution**: Optimized for React projects
-- **Strict Mode**: Enhanced for React development
+- **JSX**: `react-jsx` transform for modern React
+- **DOM Libraries**: Includes DOM, DOM.Iterable, and ES2022
+- **Target**: ES2020 (optimized for React)
+- **Path Mapping**: Both `@/*` (src) and `~/*` (root) aliases
 
 ### Next.js Configuration
 
-Extends React configuration with:
+Extends base configuration with:
 
-- **JSX**: Preserve JSX for Next.js compilation
-- **Module Resolution**: Next.js specific settings
+- **JSX**: `preserve` for Next.js compilation
+- **Target**: ES2017 (Next.js compatibility)
+- **DOM Libraries**: Includes DOM, DOM.Iterable, and ES2022
 - **Incremental**: Enabled for faster builds
-- **Plugins**: Next.js TypeScript plugin support
+- **Next.js Plugin**: Official Next.js TypeScript plugin
+- **Path Mapping**: Both `@/*` (src) and `~/*` (root) aliases
+- **Next.js Includes**: next-env.d.ts and .next/types files
 
 ## Customization
 
@@ -168,11 +174,11 @@ For packages in a monorepo:
 
 For separate build configuration:
 
-```json
+```json5
 // tsconfig.build.json
 {
-  "extends": "./tsconfig.json",
-  "exclude": ["**/*.test.ts", "**/*.test.tsx", "**/*.spec.ts", "**/*.spec.tsx", "tests/**/*", "**/__tests__/**/*"]
+  extends: "./tsconfig.json",
+  exclude: ["**/*.test.ts", "**/*.test.tsx", "**/*.spec.ts", "**/*.spec.tsx", "tests/**/*", "**/__tests__/**/*"],
 }
 ```
 
@@ -189,49 +195,94 @@ These TypeScript configurations follow these principles:
 
 ## Included Compiler Options
 
-### Common Options (All Configurations)
+### Base Configuration Options
 
 ```json
 {
-  "target": "ES2022",
-  "module": "ESNext",
-  "moduleResolution": "bundler",
-  "strict": true,
-  "esModuleInterop": true,
-  "skipLibCheck": true,
-  "forceConsistentCasingInFileNames": true,
-  "resolveJsonModule": true,
-  "isolatedModules": true,
-  "noEmit": false,
+  "allowJs": true,
+  "allowSyntheticDefaultImports": true,
   "declaration": true,
   "declarationMap": true,
-  "sourceMap": true
+  "esModuleInterop": true,
+  "exactOptionalPropertyTypes": true,
+  "forceConsistentCasingInFileNames": true,
+  "isolatedModules": true,
+  "lib": ["ES2022"],
+  "module": "ESNext",
+  "moduleResolution": "bundler",
+  "noEmit": true,
+  "noFallthroughCasesInSwitch": true,
+  "noImplicitOverride": true,
+  "noImplicitReturns": true,
+  "noPropertyAccessFromIndexSignature": true,
+  "noUncheckedIndexedAccess": true,
+  "noUnusedLocals": false,
+  "noUnusedParameters": false,
+  "resolveJsonModule": true,
+  "skipLibCheck": true,
+  "sourceMap": true,
+  "strict": true,
+  "target": "ES2022"
 }
 ```
 
-### React/Next.js Specific
+### Library Configuration Overrides
 
 ```json
 {
-  "jsx": "react-jsx", // or "preserve" for Next.js
-  "lib": ["DOM", "DOM.Iterable", "ES2022"]
-}
-```
-
-### Library Specific
-
-```json
-{
-  "composite": true,
+  "emitDeclarationOnly": false,
+  "incremental": true,
+  "noEmit": false,
   "outDir": "./dist",
-  "rootDir": "./src"
+  "paths": {
+    "@/*": ["./src/*"]
+  },
+  "removeComments": false,
+  "stripInternal": true
+}
+```
+
+### React Configuration Overrides
+
+```json
+{
+  "jsx": "react-jsx",
+  "lib": ["DOM", "DOM.Iterable", "ES2022"],
+  "target": "ES2020",
+  "paths": {
+    "@/*": ["./src/*"],
+    "~/*": ["./"]
+  }
+}
+```
+
+### Next.js Configuration Overrides
+
+```json
+{
+  "incremental": true,
+  "jsx": "preserve",
+  "lib": ["DOM", "DOM.Iterable", "ES2022"],
+  "target": "ES2017",
+  "plugins": [
+    {
+      "name": "next"
+    }
+  ],
+  "paths": {
+    "@/*": ["./src/*"],
+    "~/*": ["./"]
+  }
 }
 ```
 
 ## Requirements
 
-- **TypeScript**: ^5.8.3
+- **TypeScript**: >= 5.0.0 (to be installed in your project)
 - **Node.js**: >= 18.0.0
+
+> **Note**: This package provides TypeScript configuration files only. You need to install TypeScript in your project to
+> use these configurations.
 
 ## Best Practices
 
@@ -245,38 +296,65 @@ These TypeScript configurations follow these principles:
 
 ### Common Issues
 
-**Module Resolution Errors**
-
-```json
-{
-  "compilerOptions": {
-    "moduleResolution": "bundler",
-    "allowSyntheticDefaultImports": true
-  }
-}
-```
-
 **Path Mapping Not Working**
 
-```json
+The library and React/Next.js configurations include path mapping. Make sure your project structure matches:
+
+```json5
 {
-  "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["src/*"]
-    }
-  }
+  compilerOptions: {
+    baseUrl: ".",
+    paths: {
+      "@/*": ["./src/*"],
+      // Library config
+      "~/*": ["./"],
+      // React/Next.js configs only
+    },
+  },
 }
 ```
 
-**JSX Errors in React Projects**
+**Strict Type Checking Errors**
 
-```json
+This package enables comprehensive strict checking. If you encounter errors with `exactOptionalPropertyTypes` or
+`noUncheckedIndexedAccess`, you can override them:
+
+```json5
 {
-  "compilerOptions": {
-    "jsx": "react-jsx",
-    "lib": ["DOM", "DOM.Iterable", "ES2022"]
-  }
+  extends: "@eslint-sample/typescript-config/base",
+  compilerOptions: {
+    exactOptionalPropertyTypes: false,
+    noUncheckedIndexedAccess: false,
+  },
+}
+```
+
+**Next.js Build Issues**
+
+The Next.js configuration uses `jsx: "preserve"` and `target: "ES2017"`. If you encounter issues, ensure your Next.js
+version supports these settings:
+
+```json5
+{
+  extends: "@eslint-sample/typescript-config/next",
+  compilerOptions: {
+    target: "ES2020",
+    // Override if needed
+  },
+}
+```
+
+**Library Build Output Issues**
+
+The library configuration outputs to `./dist`. Make sure this directory exists or adjust the path:
+
+```json5
+{
+  extends: "@eslint-sample/typescript-config/library",
+  compilerOptions: {
+    outDir: "./build",
+    // Custom output directory
+  },
 }
 ```
 

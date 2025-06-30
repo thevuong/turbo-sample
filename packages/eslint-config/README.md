@@ -34,36 +34,36 @@ yarn add -D @eslint-sample/eslint-config
 
 ```javascript
 // eslint.config.js
-import { reactApp } from "@eslint-sample/eslint-config/react";
+import reactAppPreset from "@eslint-sample/eslint-config/react";
 
-export default reactApp;
+export default reactAppPreset;
 ```
 
 ### For Next.js Applications
 
 ```javascript
 // eslint.config.js
-import { nextApp } from "@eslint-sample/eslint-config/next";
+import nextAppPreset from "@eslint-sample/eslint-config/next";
 
-export default nextApp;
+export default nextAppPreset;
 ```
 
 ### For Libraries
 
 ```javascript
 // eslint.config.js
-import { library } from "@eslint-sample/eslint-config/library";
+import libraryPreset from "@eslint-sample/eslint-config/library";
 
-export default library;
+export default libraryPreset;
 ```
 
 ### For Basic Projects
 
 ```javascript
 // eslint.config.js
-import { base } from "@eslint-sample/eslint-config/base";
+import basePreset from "@eslint-sample/eslint-config/base";
 
-export default base;
+export default basePreset;
 ```
 
 ## Available Presets
@@ -82,68 +82,68 @@ For advanced users who want to compose their own configurations:
 ### Core Configurations
 
 ```javascript
-import { javascript } from "@eslint-sample/eslint-config/core/javascript";
-import { typescript } from "@eslint-sample/eslint-config/core/typescript";
-import { importRules } from "@eslint-sample/eslint-config/core/import";
-import { security } from "@eslint-sample/eslint-config/core/security";
-import { unicorn } from "@eslint-sample/eslint-config/core/unicorn";
+import baseJavaScriptRules from "@eslint-sample/eslint-config/core/javascript";
+import typescriptRules from "@eslint-sample/eslint-config/core/typescript";
+import importRules from "@eslint-sample/eslint-config/core/import";
+import securityRules from "@eslint-sample/eslint-config/core/security";
+import unicornRules from "@eslint-sample/eslint-config/core/unicorn";
 ```
 
 ### Environment Configurations
 
 ```javascript
-import { node } from "@eslint-sample/eslint-config/environments/node";
-import { browser } from "@eslint-sample/eslint-config/environments/browser";
+import nodeEnvironment from "@eslint-sample/eslint-config/environments/node";
+import browserEnvironment from "@eslint-sample/eslint-config/environments/browser";
 ```
 
 ### Framework Configurations
 
 ```javascript
-import { react } from "@eslint-sample/eslint-config/frameworks/react";
-import { next } from "@eslint-sample/eslint-config/frameworks/next";
-import { jsxA11y } from "@eslint-sample/eslint-config/frameworks/jsx-a11y";
+import reactRules from "@eslint-sample/eslint-config/frameworks/react";
+import nextRules from "@eslint-sample/eslint-config/frameworks/next";
+import jsxA11yRules from "@eslint-sample/eslint-config/frameworks/jsx-a11y";
 ```
 
 ### Language Support
 
 ```javascript
-import { json } from "@eslint-sample/eslint-config/languages/json";
-import { markdown } from "@eslint-sample/eslint-config/languages/markdown";
-import { css } from "@eslint-sample/eslint-config/languages/css";
+import jsonRules from "@eslint-sample/eslint-config/languages/json";
+import markdownRules from "@eslint-sample/eslint-config/languages/markdown";
+import cssRules from "@eslint-sample/eslint-config/languages/css";
 ```
 
 ### Testing Configurations
 
 ```javascript
-import { jest } from "@eslint-sample/eslint-config/testing/jest";
+import jestRules from "@eslint-sample/eslint-config/testing/jest";
 ```
 
 ### Utilities
 
 ```javascript
-import { composer } from "@eslint-sample/eslint-config/utils/composer";
-import { prettier } from "@eslint-sample/eslint-config/utils/prettier";
-import { onlyWarn } from "@eslint-sample/eslint-config/utils/only-warn";
-import { turbo } from "@eslint-sample/eslint-config/utils/turbo";
+import composeConfig from "@eslint-sample/eslint-config/utils/composer";
+import prettierRules from "@eslint-sample/eslint-config/utils/prettier";
+import onlyWarnRules from "@eslint-sample/eslint-config/utils/only-warn";
+import turboRules from "@eslint-sample/eslint-config/utils/turbo";
 ```
 
 ## Custom Configuration Example
 
 ```javascript
 // eslint.config.js
-import { composer } from "@eslint-sample/eslint-config/utils/composer";
-import { javascript } from "@eslint-sample/eslint-config/core/javascript";
-import { typescript } from "@eslint-sample/eslint-config/core/typescript";
-import { react } from "@eslint-sample/eslint-config/frameworks/react";
-import { node } from "@eslint-sample/eslint-config/environments/node";
-import { prettier } from "@eslint-sample/eslint-config/utils/prettier";
+import composeConfig from "@eslint-sample/eslint-config/utils/composer";
+import baseJavaScriptRules from "@eslint-sample/eslint-config/core/javascript";
+import typescriptRules from "@eslint-sample/eslint-config/core/typescript";
+import reactRules from "@eslint-sample/eslint-config/frameworks/react";
+import nodeEnvironment from "@eslint-sample/eslint-config/environments/node";
+import prettierRules from "@eslint-sample/eslint-config/utils/prettier";
 
-export default composer(
-  javascript,
-  typescript,
-  react,
-  node,
-  prettier,
+export default composeConfig(
+  baseJavaScriptRules,
+  typescriptRules,
+  reactRules,
+  nodeEnvironment,
+  prettierRules,
   // Your custom rules
   {
     rules: {
@@ -153,23 +153,71 @@ export default composer(
 );
 ```
 
+## Alternative Import Methods
+
+The package supports multiple import patterns for flexibility:
+
+### Named Exports from Main Entry
+
+```javascript
+// Import multiple configurations from the main entry point
+import {
+  basePreset,
+  reactAppPreset,
+  baseJavaScriptRules,
+  typescriptRules,
+  composeConfig,
+} from "@eslint-sample/eslint-config";
+
+export default composeConfig(
+  baseJavaScriptRules,
+  typescriptRules,
+  // Add your custom rules
+);
+```
+
+### Direct Path Imports
+
+```javascript
+// Import directly from specific paths (shown in examples above)
+import basePreset from "@eslint-sample/eslint-config/base";
+import reactRules from "@eslint-sample/eslint-config/frameworks/react";
+```
+
+### Preset Path Variations
+
+```javascript
+// Short preset paths
+import basePreset from "@eslint-sample/eslint-config/base";
+import reactAppPreset from "@eslint-sample/eslint-config/react";
+
+// Full preset paths
+import basePreset from "@eslint-sample/eslint-config/presets/base";
+import reactAppPreset from "@eslint-sample/eslint-config/presets/react-app";
+```
+
 ## Included Plugins
 
-This configuration includes the following ESLint plugins:
+This configuration includes the following ESLint plugins and parsers:
 
 - **@eslint/js** - Core JavaScript rules
-- **typescript-eslint** - TypeScript-specific rules
-- **eslint-plugin-import** - Import/export rules
+- **@eslint/css** - CSS linting support
+- **@eslint/json** - JSON file linting
+- **@eslint/markdown** - Markdown file linting
+- **typescript-eslint** - TypeScript-specific rules and parser
+- **eslint-plugin-import** - Import/export rules and validation
+- **eslint-import-resolver-typescript** - TypeScript import resolution
 - **eslint-plugin-react** - React-specific rules
 - **eslint-plugin-react-hooks** - React Hooks rules
 - **@next/eslint-plugin-next** - Next.js-specific rules
 - **eslint-plugin-jsx-a11y** - Accessibility rules for JSX
-- **eslint-plugin-unicorn** - Additional useful rules
+- **eslint-plugin-unicorn** - Additional useful rules and best practices
 - **eslint-plugin-security** - Security-focused rules
 - **eslint-plugin-jest** - Jest testing rules
 - **eslint-plugin-turbo** - Turborepo-specific rules
 - **eslint-plugin-only-warn** - Convert errors to warnings
-- **eslint-config-prettier** - Prettier integration
+- **eslint-config-prettier** - Prettier integration and conflict resolution
+- **globals** - Global variables definitions for different environments
 
 ## Language Support
 

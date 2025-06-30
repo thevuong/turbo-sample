@@ -5,6 +5,8 @@ const config: Config = {
   extensionsToTreatAsEsm: [".ts"],
   moduleNameMapper: {
     "^@/(.*)$": "<rootDir>/src/$1",
+    "^chalk$": "<rootDir>/tests/__mocks__/chalk.js",
+    "^ora$": "<rootDir>/tests/__mocks__/ora.js",
   },
   transform: {
     "^.+\\.(t|j)sx?$": [

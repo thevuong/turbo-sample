@@ -121,17 +121,21 @@ export class StandardExportGenerator implements ExportGenerator {
 
     const exportConfig: any = {
       import: {
-        default: join(options.distDir, options.esmDir, `${basePath}${options.extensions.esm}`),
+        default: this.ensureRelativePath(join(options.distDir, options.esmDir, `${basePath}${options.extensions.esm}`)),
       },
       require: {
-        default: join(options.distDir, options.cjsDir, `${basePath}${options.extensions.cjs}`),
+        default: this.ensureRelativePath(join(options.distDir, options.cjsDir, `${basePath}${options.extensions.cjs}`)),
       },
     };
 
     // Add TypeScript definitions if available
     if (exp.hasTypes) {
-      exportConfig.import.types = join(options.distDir, options.esmDir, `${basePath}${options.extensions.types}`);
-      exportConfig.require.types = join(options.distDir, options.cjsDir, `${basePath}${options.extensions.types}`);
+      exportConfig.import.types = this.ensureRelativePath(
+        join(options.distDir, options.esmDir, `${basePath}${options.extensions.types}`),
+      );
+      exportConfig.require.types = this.ensureRelativePath(
+        join(options.distDir, options.cjsDir, `${basePath}${options.extensions.types}`),
+      );
     }
 
     return exportConfig;
@@ -139,10 +143,11 @@ export class StandardExportGenerator implements ExportGenerator {
 
   private generateSingleFormatExport(exp: PackageExport, options: ExportGeneratorOptions): string {
     const basePath = this.getBasePath(exp.sourcePath);
-    const format = options.dualFormat ? options.esmDir : "dist";
-    const extension = options.dualFormat ? options.extensions.esm : ".js";
+    // Always use ESM directory structure for single format exports
+    const format = options.esmDir;
+    const extension = options.extensions.esm;
 
-    return join(options.distDir, format, `${basePath}${extension}`);
+    return this.ensureRelativePath(join(options.distDir, format, `${basePath}${extension}`));
   }
 
   private getBasePath(sourcePath: string): string {
@@ -151,6 +156,11 @@ export class StandardExportGenerator implements ExportGenerator {
     basePath = basePath.replace(/\.(ts|js)$/, "");
 
     return basePath;
+  }
+
+  private ensureRelativePath(path: string): string {
+    // Ensure path starts with "./" for proper relative path format
+    return path.startsWith("./") ? path : `./${path}`;
   }
 
   private sortExports(exports: PackageExport[]): PackageExport[] {

@@ -62,10 +62,10 @@ export class ConsoleLogger implements Logger {
     // Stop spinner if active to avoid conflicts
     if (this.spinner) {
       this.spinner.stop();
-      console.log(`${prefix} ${message}`);
+      console.log(prefix, message);
       this.spinner.start();
     } else {
-      console.log(`${prefix} ${message}`);
+      console.log(prefix, message);
     }
   }
 }

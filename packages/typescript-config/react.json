@@ -4,7 +4,7 @@
   "extends": "@eslint-sample/typescript-config/base",
   "compilerOptions": {
     "jsx": "react-jsx",
-    "lib": ["DOM", "DOM.Iterable", "ES6"],
+    "lib": ["DOM", "DOM.Iterable", "ES2022"],
     "moduleResolution": "bundler",
     "target": "ES2020",
     "paths": {

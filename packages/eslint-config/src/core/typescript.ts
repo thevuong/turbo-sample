@@ -35,7 +35,6 @@ export const typescriptRules: Linter.Config[] = [
       "@typescript-eslint/require-array-sort-compare": "error",
       "@typescript-eslint/restrict-plus-operands": "error",
       "@typescript-eslint/restrict-template-expressions": "error",
-      "@typescript-eslint/strict-boolean-expressions": "warn",
       "@typescript-eslint/switch-exhaustiveness-check": "error",
       "@typescript-eslint/unbound-method": "error",
     },

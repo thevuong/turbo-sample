@@ -38,7 +38,7 @@ export class ConsoleLogger implements Logger {
 
   stopSpinner(message?: string): void {
     if (this.spinner) {
-      if (message) {
+      if (message !== undefined && message !== "") {
         this.spinner.succeed(message);
       } else {
         this.spinner.stop();
@@ -49,7 +49,7 @@ export class ConsoleLogger implements Logger {
 
   failSpinner(message?: string): void {
     if (this.spinner) {
-      if (message) {
+      if (message !== undefined && message !== "") {
         this.spinner.fail(message);
       } else {
         this.spinner.fail();
@@ -62,9 +62,11 @@ export class ConsoleLogger implements Logger {
     // Stop spinner if active to avoid conflicts
     if (this.spinner) {
       this.spinner.stop();
+      // eslint-disable-next-line no-console
       console.log(prefix, message);
       this.spinner.start();
     } else {
+      // eslint-disable-next-line no-console
       console.log(prefix, message);
     }
   }

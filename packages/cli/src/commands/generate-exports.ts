@@ -50,7 +50,7 @@ export class GenerateExportsCommand implements CLICommand {
 
       this.logger.success("Export generation completed successfully!");
     } catch (error) {
-      this.logger.error(`Export generation failed: ${error}`);
+      this.logger.error(`Export generation failed: ${error instanceof Error ? error.message : String(error)}`);
       throw error;
     }
   }
@@ -80,7 +80,7 @@ export class GenerateExportsCommand implements CLICommand {
   }
 
   private async resolvePackages(packageInput?: string): Promise<string[]> {
-    if (packageInput) {
+    if (typeof packageInput === "string" && packageInput.length > 0) {
       // Single package specified
       const packagePath = await this.resolvePackagePath(packageInput);
       return [packagePath];
@@ -109,8 +109,8 @@ export class GenerateExportsCommand implements CLICommand {
     }
 
     // Assume it's a package name in packages directory
-    const packagesDir = path.join(process.cwd(), "packages");
-    const packagePath = path.join(packagesDir, packageInput);
+    const packagesDirectory = path.join(process.cwd(), "packages");
+    const packagePath = path.join(packagesDirectory, packageInput);
 
     if (await pathExists(packagePath)) {
       return packagePath;
@@ -122,21 +122,21 @@ export class GenerateExportsCommand implements CLICommand {
   private async discoverPackages(): Promise<string[]> {
     this.logger.startSpinner("Discovering packages...");
 
-    const packagesDir = path.join(process.cwd(), "packages");
+    const packagesDirectory = path.join(process.cwd(), "packages");
 
-    if (!(await pathExists(packagesDir))) {
+    if (!(await pathExists(packagesDirectory))) {
       this.logger.failSpinner("No packages directory found");
       throw new Error("No packages directory found. Run this command from the monorepo root.");
     }
 
     const { readdir } = await import("fs-extra");
-    const entries = await readdir(packagesDir, { withFileTypes: true });
+    const entries = await readdir(packagesDirectory, { withFileTypes: true });
 
     const packages: string[] = [];
 
     for (const entry of entries) {
       if (entry.isDirectory()) {
-        const packagePath = path.join(packagesDir, entry.name);
+        const packagePath = path.join(packagesDirectory, entry.name);
         const packageJsonPath = path.join(packagePath, "package.json");
 
         if (await pathExists(packageJsonPath)) {
@@ -156,7 +156,7 @@ export class GenerateExportsCommand implements CLICommand {
       this.logger.info(`Processing package: ${packageJson.name}`);
 
       // Create backup if requested
-      if (options.backup && !options.dryRun) {
+      if (options.backup === true && options.dryRun !== true) {
         await this.packageManager.backupPackageJson(packagePath);
       }
 
@@ -180,8 +180,7 @@ export class GenerateExportsCommand implements CLICommand {
       };
 
       // Generate exports configuration
-      let exportsConfig;
-      exportsConfig = options.mappings
+      const exportsConfig = options.mappings
         ? this.exportGenerator.generateCustomExports(detectedExports, exportOptions, options.mappings)
         : this.exportGenerator.generateExports(detectedExports, exportOptions);
 
@@ -195,15 +194,18 @@ export class GenerateExportsCommand implements CLICommand {
       this.logger.info(summary);
 
       // Update package.json (unless dry run)
-      if (options.dryRun) {
+      if (options.dryRun === true) {
         this.logger.info("Dry run mode - package.json not updated");
         this.logger.info("Generated exports:");
+        // eslint-disable-next-line no-console -- CLI output for dry run mode
         console.log(JSON.stringify(exportsConfig, null, 2));
       } else {
         await this.packageManager.updatePackageJson(packagePath, exportsConfig);
       }
     } catch (error) {
-      this.logger.error(`Failed to process package at ${packagePath}: ${error}`);
+      this.logger.error(
+        `Failed to process package at ${packagePath}: ${error instanceof Error ? error.message : String(error)}`,
+      );
       throw error;
     }
   }

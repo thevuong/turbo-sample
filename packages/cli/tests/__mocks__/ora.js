@@ -1,4 +1,5 @@
 /* global jest */
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 
 /** @returns {object} */
 const createMockSpinner = () => ({

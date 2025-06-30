@@ -30,11 +30,11 @@ export interface PackageJson {
   name: string;
   version: string;
   type?: "module" | "commonjs";
-  exports?: Record<string, any>;
+  exports?: Record<string, unknown>;
   main?: string;
   module?: string;
   types?: string;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 export interface ExportGeneratorOptions {
@@ -63,22 +63,22 @@ export interface FileScanner {
 
 export interface ExportGenerator {
   /** Generate exports configuration for a package */
-  generateExports: (exports: PackageExport[], options: ExportGeneratorOptions) => Record<string, any>;
+  generateExports: (exports: PackageExport[], options: ExportGeneratorOptions) => Record<string, unknown>;
   /** Generate exports with custom patterns */
   generateCustomExports: (
     exports: PackageExport[],
     options: ExportGeneratorOptions,
     customMappings?: Record<string, string>,
-  ) => Record<string, any>;
+  ) => Record<string, unknown>;
   /** Validate generated exports configuration */
-  validateExports: (exports: Record<string, any>) => boolean;
+  validateExports: (exports: Record<string, unknown>) => boolean;
   /** Generate exports summary for logging */
-  generateSummary: (exports: Record<string, any>) => string;
+  generateSummary: (exports: Record<string, unknown>) => string;
 }
 
 export interface PackageManager {
   /** Update package.json with new exports */
-  updatePackageJson: (packagePath: string, exports: Record<string, any>) => Promise<void>;
+  updatePackageJson: (packagePath: string, exports: Record<string, unknown>) => Promise<void>;
   /** Read package.json from a directory */
   readPackageJson: (packagePath: string) => Promise<PackageJson>;
   /** Backup package.json before making changes */
@@ -108,7 +108,7 @@ export interface CLICommand {
   /** Command description */
   description: string;
   /** Execute the command */
-  execute: (args: any) => Promise<void>;
+  execute: (args: unknown) => Promise<void>;
   /** Validate command options */
-  validateOptions?: (args: any) => void;
+  validateOptions?: (args: unknown) => void;
 }

@@ -40,7 +40,7 @@ class CLIApplication {
     try {
       await this.program.parseAsync(argv);
     } catch (error) {
-      this.logger.error(`CLI error: ${error}`);
+      this.logger.error(`CLI error: ${error instanceof Error ? error.message : String(error)}`);
       process.exit(1);
     }
   }
@@ -90,11 +90,11 @@ class CLIApplication {
 
           // Parse mappings if provided
           let mappings: Record<string, string> | undefined;
-          if (options.mappings) {
+          if (typeof options.mappings === "string" && options.mappings.length > 0) {
             try {
               mappings = JSON.parse(options.mappings);
             } catch (error) {
-              this.logger.error(`Invalid mappings JSON: ${error}`);
+              this.logger.error(`Invalid mappings JSON: ${error instanceof Error ? error.message : String(error)}`);
               process.exit(1);
             }
           }
@@ -114,7 +114,7 @@ class CLIApplication {
 
           await command.execute(commandOptions);
         } catch (error) {
-          this.logger.error(`Command failed: ${error}`);
+          this.logger.error(`Command failed: ${error instanceof Error ? error.message : String(error)}`);
           process.exit(1);
         }
       });
@@ -142,7 +142,7 @@ Examples:
       .description("List packages and their current exports")
       .option("-p, --package <name>", "Target specific package")
       .option("--json", "Output as JSON")
-      .action(async options => {
+      .action(async _options => {
         try {
           this.logger.info("Listing packages and exports...");
 
@@ -150,7 +150,7 @@ Examples:
           // For now, just show a placeholder
           this.logger.warn("List command not yet implemented");
         } catch (error) {
-          this.logger.error(`List command failed: ${error}`);
+          this.logger.error(`List command failed: ${error instanceof Error ? error.message : String(error)}`);
           process.exit(1);
         }
       });
@@ -162,7 +162,7 @@ Examples:
       .description("Validate package.json exports configuration")
       .option("-p, --package <name>", "Target specific package")
       .option("--fix", "Attempt to fix validation issues")
-      .action(async options => {
+      .action(async _options => {
         try {
           this.logger.info("Validating package exports...");
 
@@ -170,7 +170,7 @@ Examples:
           // For now, just show a placeholder
           this.logger.warn("Validate command not yet implemented");
         } catch (error) {
-          this.logger.error(`Validate command failed: ${error}`);
+          this.logger.error(`Validate command failed: ${error instanceof Error ? error.message : String(error)}`);
           process.exit(1);
         }
       });
@@ -187,12 +187,14 @@ async function main(): Promise<void> {
 
 // Handle unhandled rejections
 process.on("unhandledRejection", (reason, promise) => {
+  // eslint-disable-next-line no-console -- CLI error handling requires console output
   console.error("Unhandled Rejection at:", promise, "reason:", reason);
   process.exit(1);
 });
 
 // Handle uncaught exceptions
 process.on("uncaughtException", error => {
+  // eslint-disable-next-line no-console -- CLI error handling requires console output
   console.error("Uncaught Exception:", error);
   process.exit(1);
 });
@@ -200,6 +202,7 @@ process.on("uncaughtException", error => {
 // Run the CLI
 if (import.meta.url === `file://${process.argv[1]}`) {
   main().catch(error => {
+    // eslint-disable-next-line no-console -- CLI error handling requires console output
     console.error("Fatal error:", error);
     process.exit(1);
   });

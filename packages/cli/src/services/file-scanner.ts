@@ -29,7 +29,7 @@ export class GlobFileScanner implements FileScanner {
       this.logger.stopSpinner(`Found ${exports.length} exportable files`);
       return exports;
     } catch (error) {
-      this.logger.failSpinner(`Failed to scan package: ${error}`);
+      this.logger.failSpinner(`Failed to scan package: ${error instanceof Error ? error.message : String(error)}`);
       throw error;
     }
   }
@@ -63,10 +63,15 @@ export class GlobFileScanner implements FileScanner {
 
     for (const exp of exports) {
       const category = this.categorizeExport(exp);
-      if (!groups[category]) {
+      if (!(category in groups)) {
+        // eslint-disable-next-line security/detect-object-injection
         groups[category] = [];
       }
-      groups[category].push(exp);
+      // eslint-disable-next-line security/detect-object-injection
+      const categoryArray = groups[category];
+      if (categoryArray) {
+        categoryArray.push(exp);
+      }
     }
 
     return groups;
@@ -150,8 +155,8 @@ export class GlobFileScanner implements FileScanner {
 
     // Handle index files
     if (path.basename(key) === "index") {
-      const dir = path.dirname(key);
-      key = dir === "." ? "." : `./${dir}`;
+      const directory = path.dirname(key);
+      key = directory === "." ? "." : `./${directory}`;
     } else {
       key = `./${key}`;
     }

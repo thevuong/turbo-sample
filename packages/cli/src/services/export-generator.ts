@@ -2,6 +2,22 @@ import path from "node:path";
 
 import type { ExportGenerator, ExportGeneratorOptions, Logger, PackageExport } from "@/types.js";
 
+// Define proper types for export configurations
+type ExportConfig =
+  | string
+  | {
+      import?: {
+        default: string;
+        types?: string;
+      };
+      require?: {
+        default: string;
+        types?: string;
+      };
+    };
+
+type ExportsRecord = Record<string, ExportConfig>;
+
 /**
  * Export generator service implementation for creating package.json exports
  * Follows the Single Responsibility Principle by handling only export generation
@@ -9,11 +25,11 @@ import type { ExportGenerator, ExportGeneratorOptions, Logger, PackageExport } f
 export class StandardExportGenerator implements ExportGenerator {
   constructor(private readonly logger: Logger) {}
 
-  generateExports(exports: PackageExport[], options: ExportGeneratorOptions): Record<string, any> {
+  generateExports(exports: PackageExport[], options: ExportGeneratorOptions): ExportsRecord {
     this.logger.startSpinner("Generating exports configuration");
 
     try {
-      const exportsConfig: Record<string, any> = {};
+      const exportsConfig: ExportsRecord = {};
 
       // Sort exports to ensure consistent ordering
       const sortedExports = this.sortExports(exports);
@@ -26,7 +42,7 @@ export class StandardExportGenerator implements ExportGenerator {
       this.logger.stopSpinner(`Generated ${Object.keys(exportsConfig).length} export entries`);
       return exportsConfig;
     } catch (error) {
-      this.logger.failSpinner(`Failed to generate exports: ${error}`);
+      this.logger.failSpinner(`Failed to generate exports: ${error instanceof Error ? error.message : String(error)}`);
       throw error;
     }
   }
@@ -38,7 +54,7 @@ export class StandardExportGenerator implements ExportGenerator {
     exports: PackageExport[],
     options: ExportGeneratorOptions,
     customMappings?: Record<string, string>,
-  ): Record<string, any> {
+  ): ExportsRecord {
     const baseExports = this.generateExports(exports, options);
 
     if (!customMappings) {
@@ -46,11 +62,16 @@ export class StandardExportGenerator implements ExportGenerator {
     }
 
     // Apply custom mappings
-    const customExports: Record<string, any> = {};
+    const customExports: ExportsRecord = {};
 
     for (const [customKey, sourceKey] of Object.entries(customMappings)) {
-      if (baseExports[sourceKey]) {
-        customExports[customKey] = baseExports[sourceKey];
+      if (sourceKey in baseExports) {
+        // eslint-disable-next-line security/detect-object-injection
+        const exportValue = baseExports[sourceKey];
+        if (exportValue !== undefined) {
+          // eslint-disable-next-line security/detect-object-injection
+          customExports[customKey] = exportValue;
+        }
       } else {
         this.logger.warn(`Custom mapping source key "${sourceKey}" not found in generated exports`);
       }
@@ -62,10 +83,10 @@ export class StandardExportGenerator implements ExportGenerator {
   /**
    * Validate generated exports configuration
    */
-  validateExports(exports: Record<string, any>): boolean {
+  validateExports(exports: ExportsRecord): boolean {
     try {
       // Check for required main export
-      if (!exports["."]) {
+      if (!Object.prototype.hasOwnProperty.call(exports, ".")) {
         this.logger.warn('Missing main export "."');
         return false;
       }
@@ -79,7 +100,7 @@ export class StandardExportGenerator implements ExportGenerator {
 
       return true;
     } catch (error) {
-      this.logger.error(`Export validation failed: ${error}`);
+      this.logger.error(`Export validation failed: ${error instanceof Error ? error.message : String(error)}`);
       return false;
     }
   }
@@ -87,10 +108,15 @@ export class StandardExportGenerator implements ExportGenerator {
   /**
    * Generate exports summary for logging
    */
-  generateSummary(exports: Record<string, any>): string {
+  generateSummary(exports: ExportsRecord): string {
     const totalExports = Object.keys(exports).length;
     const dualFormatCount = Object.values(exports).filter(
-      exp => typeof exp === "object" && exp.import && exp.require,
+       
+      exp =>
+        typeof exp === "object" &&
+        exp !== null &&
+        (exp as Record<string, unknown>).import !== undefined &&
+        (exp as Record<string, unknown>).require !== undefined,
     ).length;
     const simpleExports = totalExports - dualFormatCount;
 
@@ -101,14 +127,14 @@ export class StandardExportGenerator implements ExportGenerator {
     ].join("\n");
   }
 
-  private generateSingleExport(exp: PackageExport, options: ExportGeneratorOptions): any {
+  private generateSingleExport(exp: PackageExport, options: ExportGeneratorOptions): ExportConfig {
     // For JSON files, return simple path
-    if (exp.sourcePath.endsWith(".json")) {
+    if (exp.sourcePath.endsWith(".json") === true) {
       return `./${exp.sourcePath}`;
     }
 
     // For dual format packages
-    if (exp.dualFormat && options.dualFormat) {
+    if (exp.dualFormat === true && options.dualFormat === true) {
       return this.generateDualFormatExport(exp, options);
     }
 
@@ -116,10 +142,10 @@ export class StandardExportGenerator implements ExportGenerator {
     return this.generateSingleFormatExport(exp, options);
   }
 
-  private generateDualFormatExport(exp: PackageExport, options: ExportGeneratorOptions): any {
+  private generateDualFormatExport(exp: PackageExport, options: ExportGeneratorOptions): NonNullable<ExportConfig> {
     const basePath = this.getBasePath(exp.sourcePath);
 
-    const exportConfig: any = {
+    const exportConfig = {
       import: {
         default: this.ensureRelativePath(
           path.join(options.distDir, options.esmDir, `${basePath}${options.extensions.esm}`),
@@ -133,7 +159,7 @@ export class StandardExportGenerator implements ExportGenerator {
     };
 
     // Add TypeScript definitions if available
-    if (exp.hasTypes) {
+    if (exp.hasTypes === true) {
       exportConfig.import.types = this.ensureRelativePath(
         path.join(options.distDir, options.esmDir, `${basePath}${options.extensions.types}`),
       );
@@ -204,16 +230,18 @@ export class StandardExportGenerator implements ExportGenerator {
     return 99; // Everything else
   }
 
-  private validateSingleExport(key: string, value: any): boolean {
+  private validateSingleExport(key: string, value: ExportConfig): boolean {
     // Simple string export (for JSON files)
     if (typeof value === "string") {
       return value.startsWith("./");
     }
 
     // Dual format export
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if (typeof value === "object" && value !== null) {
-      const hasImport = value.import && typeof value.import === "object";
-      const hasRequire = value.require && typeof value.require === "object";
+      const valueObject = value as Record<string, unknown>;
+      const hasImport = valueObject.import !== undefined;
+      const hasRequire = valueObject.require !== undefined;
 
       if (hasImport || hasRequire) {
         return true;

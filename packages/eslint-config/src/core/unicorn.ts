@@ -22,16 +22,6 @@ export const unicornRules: Linter.Config[] = [
           },
         },
       ],
-      "unicorn/import-style": [
-        "error",
-        {
-          styles: {
-            path: {
-              named: true,
-            },
-          },
-        },
-      ],
       "unicorn/no-array-reduce": "off", // Reduce is useful in many cases
       "unicorn/no-null": "off", // Allow null for compatibility
       "unicorn/no-process-exit": "off", // Not always appropriate

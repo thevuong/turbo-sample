@@ -76,7 +76,7 @@ Build outputs:
 
 ### Testing Framework
 
-Uses **Node.js built-in test runner** with **tsx** for TypeScript support:
+Uses **Jest** with **@swc/jest** for TypeScript support:
 
 ```bash
 # Run tests in a specific package
@@ -89,37 +89,44 @@ pnpm test
 
 ### Adding New Tests
 
-1. Create test files with `.test.ts` extension in the `src/` directory
-2. Use Node.js built-in test functions:
+1. Create test files with `.test.ts` extension in the `tests/` directory
+2. Use Jest test functions:
 
    ```typescript
-   import { strict as assert } from "node:assert";
-   import { test, describe } from "node:test";
+   import { describe, test, expect } from "@jest/globals";
 
    describe("Your Feature", () => {
      test("should do something", () => {
-       assert.equal(actual, expected);
+       const result = yourFunction();
+       expect(result).toBe(expectedValue);
      });
    });
    ```
 
-3. Import from TypeScript source files using `.ts` extension:
+3. Import from TypeScript source files using standard ES module syntax:
    ```typescript
-   import { yourFunction } from "./your-module.ts";
+   import { yourFunction } from "../src/your-module.ts";
    ```
 
 ### Test Configuration
 
-- **Test Runner**: `tsx --test src/**/*.test.ts`
-- **Dependencies**: tsx is required as devDependency for TypeScript support
-- **Test Files**: Excluded from build output (configured in rslib.config.ts and tsconfig.build.json)
+- **Test Runner**: Jest with @swc/jest for fast TypeScript compilation
+- **Configuration**: `jest.config.ts` in the package root
+- **Dependencies**: `jest`, `@jest/globals`, and `@swc/jest` are required as devDependencies
+- **Test Files**: Located in `tests/` directory, excluded from build output
 
 ### Example Test Execution
 
 ```bash
 cd packages/eslint-config
 pnpm test
-# Output: ✔ All tests pass with detailed results
+# Output:
+# PASS  tests/index.test.ts
+#   ESLint Config Package
+#     ✓ should be able to run TypeScript tests with Jest and @swc/jest
+#     ✓ should support ES modules syntax
+# Test Suites: 1 passed, 1 total
+# Tests:       2 passed, 2 total
 ```
 
 ## Code Style and Development Practices

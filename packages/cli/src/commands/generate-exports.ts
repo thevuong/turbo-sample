@@ -1,7 +1,9 @@
 import path from "node:path";
 
 import { pathExists } from "fs-extra/esm";
+import { ZodError } from "zod";
 
+import { generateExportsOptionsSchema } from "@/schemas/validation";
 import { DEFAULT_EXPORT_OPTIONS } from "@/services/export-generator";
 
 import type {
@@ -11,28 +13,10 @@ import type {
   ExportGeneratorOptions,
   ExportsConfigFile,
   FileScanner,
+  GenerateExportsOptions,
   Logger,
   PackageManager,
 } from "@/types";
-
-export interface GenerateExportsOptions {
-  /** Target package path or name */
-  package?: string;
-  /** Whether to generate dual format exports */
-  dualFormat?: boolean;
-  /** Dry run mode - don't write files */
-  dryRun?: boolean;
-  /** Create backup before updating */
-  backup?: boolean;
-  /** Include patterns for files */
-  include?: string[];
-  /** Exclude patterns for files */
-  exclude?: string[];
-  /** Custom export mappings */
-  mappings?: Record<string, string> | undefined;
-  /** Path to configuration file */
-  config?: string;
-}
 
 /**
  * Command to generate exports for packages
@@ -71,26 +55,40 @@ export class GenerateExportsCommand implements CLICommand<GenerateExportsOptions
   }
 
   /**
-   * Validate command options
+   * Validate command options using Zod
    */
   validateOptions(options: GenerateExportsOptions): void {
-    if (options.include && options.include.length === 0) {
-      throw new Error("Include patterns cannot be empty array");
-    }
+    try {
+      // First validate with Zod schema
+      generateExportsOptionsSchema.parse(options);
 
-    if (options.exclude && options.exclude.length === 0) {
-      throw new Error("Exclude patterns cannot be empty array");
-    }
+      // Additional custom validations
+      if (options.include && options.include.length === 0) {
+        throw new Error("Include patterns cannot be empty array");
+      }
 
-    if (options.mappings) {
-      for (const [key, value] of Object.entries(options.mappings)) {
-        if (!key.startsWith("./")) {
-          throw new Error(`Custom mapping key "${key}" must start with "./"`);
-        }
-        if (!value.startsWith("./")) {
-          throw new Error(`Custom mapping value "${value}" must start with "./"`);
+      if (options.exclude && options.exclude.length === 0) {
+        throw new Error("Exclude patterns cannot be empty array");
+      }
+
+      if (options.mappings) {
+        for (const [key, value] of Object.entries(options.mappings)) {
+          if (!key.startsWith("./")) {
+            throw new Error(`Custom mapping key "${key}" must start with "./"`);
+          }
+          if (!value.startsWith("./")) {
+            throw new Error(`Custom mapping value "${value}" must start with "./"`);
+          }
         }
       }
+    } catch (error) {
+      if (error instanceof ZodError) {
+        const errorMessages = error.errors
+          .map(zodError => `${zodError.path.join(".")}: ${zodError.message}`)
+          .join(", ");
+        throw new Error(`Invalid command options: ${errorMessages}`);
+      }
+      throw error;
     }
   }
 
@@ -171,7 +169,7 @@ export class GenerateExportsCommand implements CLICommand<GenerateExportsOptions
     config: ExportsConfigFile | null,
   ): Promise<void> {
     try {
-      // Read package info
+      // Read package information
       const packageJson = await this.packageManager.readPackageJson(packagePath);
       this.logger.info(`Processing package: ${packageJson.name}`);
 
@@ -188,9 +186,9 @@ export class GenerateExportsCommand implements CLICommand<GenerateExportsOptions
       const packageConfig = config?.packages?.[packageJson.name];
       const mergedConfig = this.configLoader.mergeConfig(globalConfig, packageConfig);
 
-      // Determine final include/exclude patterns (CLI options take precedence)
-      const finalInclude = options.include || mergedConfig.include;
-      const finalExclude = options.exclude || mergedConfig.exclude;
+      // Determine finally include/exclude patterns (CLI options take precedence)
+      const finalInclude = options.include ?? mergedConfig.include;
+      const finalExclude = options.exclude ?? mergedConfig.exclude;
 
       // Apply filters if specified
       if (finalInclude || finalExclude) {
@@ -210,7 +208,7 @@ export class GenerateExportsCommand implements CLICommand<GenerateExportsOptions
       };
 
       // Determine final mappings (CLI options take precedence)
-      const finalMappings = options.mappings || mergedConfig.mappings;
+      const finalMappings = options.mappings ?? mergedConfig.mappings;
 
       // Generate exports configuration
       const exportsConfig = finalMappings
@@ -255,3 +253,6 @@ export function createGenerateExportsCommand(
 ): CLICommand<GenerateExportsOptions> {
   return new GenerateExportsCommand(logger, fileScanner, exportGenerator, packageManager, configLoader);
 }
+
+// Export the GenerateExportsOptions type for external use
+export type { GenerateExportsOptions } from "@/types";

@@ -1,6 +1,9 @@
 import path from "node:path";
 
 import { pathExists, readJson, writeJson } from "fs-extra/esm";
+import { ZodError } from "zod";
+
+import { packageJsonSchema } from "@/schemas/validation";
 
 import type { Logger, PackageJson, PackageManager } from "@/types";
 
@@ -21,12 +24,19 @@ export class FileSystemPackageManager implements PackageManager {
     try {
       const packageJson = await readJson(packageJsonPath);
 
-      // Validate required fields
-      if (typeof packageJson.name !== "string" || typeof packageJson.version !== "string") {
-        throw new TypeError(`Invalid package.json at ${packageJsonPath}: missing name or version`);
+      // Validate package.json structure using Zod
+      try {
+        const validatedPackageJson = packageJsonSchema.parse(packageJson);
+        return validatedPackageJson;
+      } catch (validationError) {
+        if (validationError instanceof ZodError) {
+          const errorMessages = validationError.errors
+            .map(zodError => `${zodError.path.join(".")}: ${zodError.message}`)
+            .join(", ");
+          throw new TypeError(`Invalid package.json at ${packageJsonPath}: ${errorMessages}`);
+        }
+        throw new TypeError(`Invalid package.json at ${packageJsonPath}: validation failed`);
       }
-
-      return packageJson as PackageJson;
     } catch (error) {
       this.logger.error(
         `Failed to read package.json at ${packageJsonPath}: ${error instanceof Error ? error.message : String(error)}`,

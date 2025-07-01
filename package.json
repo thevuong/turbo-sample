@@ -25,7 +25,7 @@
     "exports:update": "pnpm --filter @eslint-sample/cli build && node packages/cli/dist/esm/bin/cli.js generate --backup",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "install:all": "pnpm install --frozen-lockfile",
+    "install:all": "pnpm install",
     "lint": "turbo lint",
     "lint:fix": "turbo lint:fix",
     "precommit": "lint-staged",

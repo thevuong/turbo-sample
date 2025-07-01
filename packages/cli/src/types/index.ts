@@ -1,22 +1,21 @@
 /**
  * Core types and interfaces for the CLI package
+ * Re-exports Zod-validated types for consistency
  */
 
-export interface PackageExport {
-  /** The export key (e.g., ".", "./base", "./react") */
-  key: string;
-  /** The source file path relative to package root */
-  sourcePath: string;
-  /** Whether this export supports both ESM and CJS */
-  dualFormat: boolean;
-  /** Whether this export has TypeScript definitions */
-  hasTypes: boolean;
-}
+import type {
+  CategoryConfig,
+  ExportConfig,
+  ExportGeneratorOptions,
+  ExportsConfigFile,
+  PackageExport,
+  PackageJson,
+} from "@/schemas/validation";
 
 export interface PackageInfo {
   /** Package name */
   name: string;
-  /** Absolute path to package directory */
+  /** Absolute path to the package directory */
   path: string;
   /** Relative path from monorepo root */
   relativePath: string;
@@ -24,40 +23,6 @@ export interface PackageInfo {
   packageJson: PackageJson;
   /** Detected exports from source files */
   detectedExports: PackageExport[];
-}
-
-export interface PackageJson {
-  name: string;
-  version: string;
-  type?: "module" | "commonjs";
-  exports?: Record<string, unknown>;
-  main?: string;
-  module?: string;
-  types?: string;
-  [key: string]: unknown;
-}
-
-export type ExportPriorityConfig = Record<string, number>;
-
-export type CategoryConfig = Record<string, string>;
-
-export interface ExportGeneratorOptions {
-  /** Whether to generate dual format exports (ESM + CJS) */
-  dualFormat: boolean;
-  /** Base directory for built files */
-  distDir: string;
-  /** ESM output directory relative to distDir */
-  esmDir: string;
-  /** CJS output directory relative to distDir */
-  cjsDir: string;
-  /** File extensions for different formats */
-  extensions: {
-    esm: string;
-    cjs: string;
-    types: string;
-  };
-  /** Custom export priority configuration (optional) */
-  exportPriorities?: ExportPriorityConfig;
 }
 
 export interface FileScanner {
@@ -102,38 +67,18 @@ export interface Logger {
   warn: (message: string) => void;
   /** Log error message */
   error: (message: string) => void;
-  /** Start a spinner with message */
+  /** Start a spinner with a message */
   startSpinner: (message: string) => void;
-  /** Stop current spinner with success message */
+  /** Stop the current spinner with a success message */
   stopSpinner: (message?: string) => void;
-  /** Stop current spinner with error message */
+  /** Stop the current spinner with an error message */
   failSpinner: (message?: string) => void;
 }
 
-export interface ExportConfig {
-  /** Include patterns for files to export */
-  include?: string[];
-  /** Exclude patterns for files to exclude from exports */
-  exclude?: string[];
-  /** Custom export mappings */
-  mappings?: Record<string, string>;
-  /** Whether to generate dual format exports */
-  dualFormat?: boolean;
-  /** Package-specific export priorities */
-  exportPriorities?: ExportPriorityConfig;
-}
-
-export interface ExportsConfigFile {
-  /** Global configuration applied to all packages */
-  global?: ExportConfig;
-  /** Package-specific configurations */
-  packages?: Record<string, ExportConfig>;
-}
-
 export interface ConfigLoader {
-  /** Load exports configuration from file */
+  /** Load exports configuration from a file */
   loadConfig: (configPath?: string) => Promise<ExportsConfigFile | null>;
-  /** Find configuration file in project */
+  /** Find a configuration file in a project */
   findConfigFile: (startPath?: string) => Promise<string | null>;
   /** Merge global and package-specific configuration */
   mergeConfig: (global: ExportConfig | undefined, packageConfig: ExportConfig | undefined) => ExportConfig;
@@ -149,3 +94,14 @@ export interface CLICommand<T = unknown> {
   /** Validate command options */
   validateOptions?: (args: T) => void;
 }
+
+export type {
+  ExportPriorityConfig,
+  GenerateExportsOptions,
+  PackageExport,
+  PackageJson,
+  CategoryConfig,
+  ExportGeneratorOptions,
+  ExportConfig,
+  ExportsConfigFile,
+} from "@/schemas/validation";

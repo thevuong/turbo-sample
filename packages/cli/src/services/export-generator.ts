@@ -238,8 +238,8 @@ export class StandardExportGenerator implements ExportGenerator {
    */
   private ensureMainExport(
     exportsConfig: ExportsRecord,
-    sortedExports: PackageExport[],
-    options: ExportGeneratorOptions,
+    _sortedExports: PackageExport[],
+    _options: ExportGeneratorOptions,
   ): void {
     // If the main export already exists, nothing to do
     if (Object.prototype.hasOwnProperty.call(exportsConfig, ".")) {

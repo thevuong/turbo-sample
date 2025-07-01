@@ -7,12 +7,14 @@ import { fileURLToPath } from "node:url";
 import { Command } from "commander";
 
 // Import services
-import { createGenerateExportsCommand, type GenerateExportsOptions } from "@/commands/generate-exports";
+import { createGenerateExportsCommand } from "@/commands/generate-exports";
 import { createConfigLoader } from "@/services/config-loader";
 import { createExportGenerator } from "@/services/export-generator";
 import { createFileScanner } from "@/services/file-scanner";
 import { createLogger } from "@/services/logger";
 import { createPackageManager } from "@/services/package-manager";
+
+import type { GenerateExportsOptions } from "@/types";
 
 // Get package info
 const __filename = fileURLToPath(import.meta.url);

@@ -1,6 +1,9 @@
 import path from "node:path";
 
 import { pathExists } from "fs-extra/esm";
+import { ZodError } from "zod";
+
+import { exportsConfigFileSchema } from "@/schemas/validation";
 
 import type { ConfigLoader, ExportConfig, ExportsConfigFile, Logger } from "@/types";
 
@@ -52,15 +55,21 @@ export class StandardConfigLoader implements ConfigLoader {
 
       // Dynamic import to support both JS and TS files
       const configModule = await import(resolvedPath);
-      const config = configModule.default || configModule;
+      const config = configModule.default ?? configModule;
 
-      // Validate configuration structure
-      if (!this.validateConfig(config)) {
-        this.logger.warn("Invalid configuration structure, using defaults");
+      // Validate configuration structure using Zod
+      try {
+        return exportsConfigFileSchema.parse(config);
+      } catch (error) {
+        if (error instanceof ZodError) {
+          this.logger.warn(
+            `Invalid configuration structure: ${error.errors.map(zodError => `${zodError.path.join(".")}: ${zodError.message}`).join(", ")}`,
+          );
+        } else {
+          this.logger.warn("Invalid configuration structure, using defaults");
+        }
         return null;
       }
-
-      return config as ExportsConfigFile;
     } catch (error) {
       this.logger.error(`Failed to load configuration: ${error instanceof Error ? error.message : String(error)}`);
       return null;
@@ -75,14 +84,14 @@ export class StandardConfigLoader implements ConfigLoader {
       Object.assign(merged, global);
     }
 
-    // Override with package-specific config
+    // Override with a package-specific config
     if (packageConfig) {
       // Merge arrays for include/exclude patterns
       if (packageConfig.include) {
-        merged.include = [...(merged.include || []), ...packageConfig.include];
+        merged.include = [...(merged.include ?? []), ...packageConfig.include];
       }
       if (packageConfig.exclude) {
-        merged.exclude = [...(merged.exclude || []), ...packageConfig.exclude];
+        merged.exclude = [...(merged.exclude ?? []), ...packageConfig.exclude];
       }
 
       // Override other properties
@@ -98,83 +107,6 @@ export class StandardConfigLoader implements ConfigLoader {
     }
 
     return merged;
-  }
-
-  private validateConfig(config: unknown): boolean {
-    if (!config || typeof config !== "object") {
-      return false;
-    }
-
-    const configObject = config as Record<string, unknown>;
-
-    // Check if it has either global or packages property
-    if (!("global" in configObject) && !("packages" in configObject)) {
-      return false;
-    }
-
-    // Validate global config if present
-    if ("global" in configObject && configObject["global"] && !this.validateExportConfig(configObject["global"])) {
-      return false;
-    }
-
-    // Validate packages config if present
-    if ("packages" in configObject && configObject["packages"]) {
-      if (typeof configObject["packages"] !== "object") {
-        return false;
-      }
-
-      const packages = configObject["packages"] as Record<string, unknown>;
-      for (const [packageName, packageConfig] of Object.entries(packages)) {
-        if (!this.validateExportConfig(packageConfig)) {
-          this.logger.warn(`Invalid configuration for package: ${packageName}`);
-          return false;
-        }
-      }
-    }
-
-    return true;
-  }
-
-  private validateExportConfig(config: unknown): boolean {
-    if (!config || typeof config !== "object") {
-      return false;
-    }
-
-    const configObject = config as Record<string, unknown>;
-
-    // Validate include patterns
-    if (
-      "include" in configObject &&
-      configObject["include"] &&
-      (!Array.isArray(configObject["include"]) || !configObject["include"].every(item => typeof item === "string"))
-    ) {
-      return false;
-    }
-
-    // Validate exclude patterns
-    if (
-      "exclude" in configObject &&
-      configObject["exclude"] &&
-      (!Array.isArray(configObject["exclude"]) || !configObject["exclude"].every(item => typeof item === "string"))
-    ) {
-      return false;
-    }
-
-    // Validate mappings
-    if ("mappings" in configObject && configObject["mappings"] && typeof configObject["mappings"] !== "object") {
-      return false;
-    }
-
-    // Validate dualFormat
-    if (
-      "dualFormat" in configObject &&
-      configObject["dualFormat"] !== undefined &&
-      typeof configObject["dualFormat"] !== "boolean"
-    ) {
-      return false;
-    }
-
-    return true;
   }
 }
 

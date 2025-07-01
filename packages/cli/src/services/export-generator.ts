@@ -1,6 +1,6 @@
 import path from "node:path";
 
-import type { ExportGenerator, ExportGeneratorOptions, Logger, PackageExport } from "@/types.js";
+import type { ExportGenerator, ExportGeneratorOptions, Logger, PackageExport } from "@/types";
 
 // Define proper types for export configurations
 type ExportConfig =
@@ -32,7 +32,7 @@ export class StandardExportGenerator implements ExportGenerator {
       const exportsConfig: ExportsRecord = {};
 
       // Sort exports to ensure consistent ordering
-      const sortedExports = this.sortExports(exports);
+      const sortedExports = this.sortExports(exports, options.exportPriorities);
 
       for (const exp of sortedExports) {
         const exportConfig = this.generateSingleExport(exp, options);
@@ -83,7 +83,7 @@ export class StandardExportGenerator implements ExportGenerator {
   /**
    * Validate generated exports configuration
    */
-  validateExports(exports: ExportsRecord): boolean {
+  validateExports(exports: Record<string, unknown>): boolean {
     try {
       // Check for required main export
       if (!Object.prototype.hasOwnProperty.call(exports, ".")) {
@@ -93,7 +93,7 @@ export class StandardExportGenerator implements ExportGenerator {
 
       // Validate export structure
       for (const [key, value] of Object.entries(exports)) {
-        if (!this.validateSingleExport(key, value)) {
+        if (!this.validateSingleExport(key, value as ExportConfig)) {
           return false;
         }
       }
@@ -108,15 +108,14 @@ export class StandardExportGenerator implements ExportGenerator {
   /**
    * Generate exports summary for logging
    */
-  generateSummary(exports: ExportsRecord): string {
+  generateSummary(exports: Record<string, unknown>): string {
     const totalExports = Object.keys(exports).length;
     const dualFormatCount = Object.values(exports).filter(
-       
       exp =>
         typeof exp === "object" &&
         exp !== null &&
-        (exp as Record<string, unknown>).import !== undefined &&
-        (exp as Record<string, unknown>).require !== undefined,
+        (exp as Record<string, unknown>)["import"] !== undefined &&
+        (exp as Record<string, unknown>)["require"] !== undefined,
     ).length;
     const simpleExports = totalExports - dualFormatCount;
 
@@ -145,7 +144,10 @@ export class StandardExportGenerator implements ExportGenerator {
   private generateDualFormatExport(exp: PackageExport, options: ExportGeneratorOptions): NonNullable<ExportConfig> {
     const basePath = this.getBasePath(exp.sourcePath);
 
-    const exportConfig = {
+    const exportConfig: {
+      import: { default: string; types?: string };
+      require: { default: string; types?: string };
+    } = {
       import: {
         default: this.ensureRelativePath(
           path.join(options.distDir, options.esmDir, `${basePath}${options.extensions.esm}`),
@@ -193,15 +195,15 @@ export class StandardExportGenerator implements ExportGenerator {
     return path.startsWith("./") ? path : `./${path}`;
   }
 
-  private sortExports(exports: PackageExport[]): PackageExport[] {
+  private sortExports(exports: PackageExport[], priorityConfig?: Record<string, number>): PackageExport[] {
     return exports.sort((a, b) => {
       // Main export (.) should come first
       if (a.key === ".") return -1;
       if (b.key === ".") return 1;
 
       // Sort by category priority
-      const aPriority = this.getExportPriority(a.key);
-      const bPriority = this.getExportPriority(b.key);
+      const aPriority = this.getExportPriority(a.key, priorityConfig);
+      const bPriority = this.getExportPriority(b.key, priorityConfig);
 
       if (aPriority !== bPriority) {
         return aPriority - bPriority;
@@ -212,22 +214,21 @@ export class StandardExportGenerator implements ExportGenerator {
     });
   }
 
-  private getExportPriority(key: string): number {
-    // Define priority order for different export categories
+  private getExportPriority(key: string, priorityConfig?: Record<string, number>): number {
+    // Main export always comes first
     if (key === ".") return 0;
-    if (key.startsWith("./base")) return 1;
-    if (key.startsWith("./react")) return 2;
-    if (key.startsWith("./next")) return 3;
-    if (key.startsWith("./library")) return 4;
-    if (key.startsWith("./presets/")) return 5;
-    if (key.startsWith("./core/")) return 6;
-    if (key.startsWith("./environments/")) return 7;
-    if (key.startsWith("./languages/")) return 8;
-    if (key.startsWith("./frameworks/")) return 9;
-    if (key.startsWith("./utils/")) return 10;
-    if (key.startsWith("./testing/")) return 11;
 
-    return 99; // Everything else
+    // Use custom priority configuration if provided
+    if (priorityConfig) {
+      for (const [pattern, priority] of Object.entries(priorityConfig)) {
+        if (key.startsWith(pattern)) {
+          return priority;
+        }
+      }
+    }
+
+    // Default priority for everything else
+    return 99;
   }
 
   private validateSingleExport(key: string, value: ExportConfig): boolean {
@@ -240,8 +241,8 @@ export class StandardExportGenerator implements ExportGenerator {
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if (typeof value === "object" && value !== null) {
       const valueObject = value as Record<string, unknown>;
-      const hasImport = valueObject.import !== undefined;
-      const hasRequire = valueObject.require !== undefined;
+      const hasImport = valueObject["import"] !== undefined;
+      const hasRequire = valueObject["require"] !== undefined;
 
       if (hasImport || hasRequire) {
         return true;
@@ -273,4 +274,5 @@ export const DEFAULT_EXPORT_OPTIONS: ExportGeneratorOptions = {
     cjs: ".cjs",
     types: ".d.ts",
   },
+  // No default export priorities - let packages define their own
 };

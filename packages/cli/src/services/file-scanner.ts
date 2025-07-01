@@ -3,14 +3,20 @@ import path from "node:path";
 import { pathExists } from "fs-extra";
 import { glob } from "glob";
 
-import type { FileScanner, Logger, PackageExport } from "@/types";
+import type { CategoryConfig, FileScanner, Logger, PackageExport } from "@/types";
 
 /**
  * File scanner service implementation for detecting exportable files
  * Follows the Single Responsibility Principle by handling only file scanning concerns
  */
 export class GlobFileScanner implements FileScanner {
+  private categoryConfig: CategoryConfig = {};
+
   constructor(private readonly logger: Logger) {}
+
+  setCategoryConfig(config: CategoryConfig): void {
+    this.categoryConfig = config;
+  }
 
   async scanPackage(packagePath: string): Promise<PackageExport[]> {
     try {
@@ -192,14 +198,14 @@ export class GlobFileScanner implements FileScanner {
   private categorizeExport(exp: PackageExport): string {
     const path = exp.sourcePath.toLowerCase();
 
-    if (Boolean(path.includes("preset"))) return "presets";
-    if (Boolean(path.includes("core"))) return "core";
-    if (Boolean(path.includes("util"))) return "utils";
-    if (Boolean(path.includes("framework"))) return "frameworks";
-    if (Boolean(path.includes("environment"))) return "environments";
-    if (Boolean(path.includes("language"))) return "languages";
-    if (Boolean(path.includes("test"))) return "testing";
+    // Use configured category mappings if available
+    for (const [pattern, category] of Object.entries(this.categoryConfig)) {
+      if (path.includes(pattern.toLowerCase())) {
+        return category;
+      }
+    }
 
+    // Default category for uncategorized exports
     return "misc";
   }
 }

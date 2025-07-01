@@ -27,7 +27,7 @@ export interface GenerateExportsOptions {
  * Command to generate exports for packages
  * Follows the Command pattern and Single Responsibility Principle
  */
-export class GenerateExportsCommand implements CLICommand {
+export class GenerateExportsCommand implements CLICommand<GenerateExportsOptions> {
   name = "generate-exports";
   description = "Generate package.json exports for packages based on source files";
 
@@ -219,6 +219,6 @@ export function createGenerateExportsCommand(
   fileScanner: FileScanner,
   exportGenerator: ExportGenerator,
   packageManager: PackageManager,
-): CLICommand {
+): CLICommand<GenerateExportsOptions> {
   return new GenerateExportsCommand(logger, fileScanner, exportGenerator, packageManager);
 }

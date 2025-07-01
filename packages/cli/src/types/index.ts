@@ -37,6 +37,10 @@ export interface PackageJson {
   [key: string]: unknown;
 }
 
+export type ExportPriorityConfig = Record<string, number>;
+
+export type CategoryConfig = Record<string, string>;
+
 export interface ExportGeneratorOptions {
   /** Whether to generate dual format exports (ESM + CJS) */
   dualFormat: boolean;
@@ -52,6 +56,8 @@ export interface ExportGeneratorOptions {
     cjs: string;
     types: string;
   };
+  /** Custom export priority configuration (optional) */
+  exportPriorities?: ExportPriorityConfig;
 }
 
 export interface FileScanner {
@@ -59,6 +65,8 @@ export interface FileScanner {
   scanPackage: (packagePath: string) => Promise<PackageExport[]>;
   /** Filter exports based on patterns */
   filterExports: (exports: PackageExport[], includePatterns?: string[], excludePatterns?: string[]) => PackageExport[];
+  /** Configure category mappings for export categorization */
+  setCategoryConfig?: (config: CategoryConfig) => void;
 }
 
 export interface ExportGenerator {
@@ -102,13 +110,13 @@ export interface Logger {
   failSpinner: (message?: string) => void;
 }
 
-export interface CLICommand {
+export interface CLICommand<T = unknown> {
   /** Command name */
   name: string;
   /** Command description */
   description: string;
   /** Execute the command */
-  execute: (args: unknown) => Promise<void>;
+  execute: (args: T) => Promise<void>;
   /** Validate command options */
-  validateOptions?: (args: unknown) => void;
+  validateOptions?: (args: T) => void;
 }

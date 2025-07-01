@@ -1,7 +1,7 @@
 import chalk from "chalk";
 import ora, { type Ora } from "ora";
 
-import type { Logger } from "@/types.js";
+import type { Logger } from "@/types";
 
 /**
  * Logger service implementation using chalk for colors and ora for spinners

@@ -1,6 +1,6 @@
 import path from "node:path";
 
-import { pathExists, readJson, writeJson } from "fs-extra";
+import { pathExists, readJson, writeJson } from "fs-extra/esm";
 
 import type { Logger, PackageJson, PackageManager } from "@/types";
 
@@ -79,31 +79,6 @@ export class FileSystemPackageManager implements PackageManager {
     } catch (error) {
       this.logger.error(`Failed to create backup: ${error instanceof Error ? error.message : String(error)}`);
       throw error;
-    }
-  }
-
-  /**
-   * Validate package.json structure
-   */
-  async validatePackageJson(packagePath: string): Promise<boolean> {
-    try {
-      const packageJson = await this.readPackageJson(packagePath);
-
-      // Basic validation
-      const isValid = !!(
-        packageJson.name &&
-        packageJson.version &&
-        typeof packageJson.name === "string" &&
-        typeof packageJson.version === "string"
-      );
-
-      if (!isValid) {
-        this.logger.warn(`Invalid package.json structure at ${packagePath}`);
-      }
-
-      return isValid;
-    } catch {
-      return false;
     }
   }
 }

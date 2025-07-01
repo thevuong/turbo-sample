@@ -16,7 +16,7 @@ import { createPackageManager } from "@/services/package-manager";
 // Get package info
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const packageJsonPath = path.join(__dirname, "../../package.json");
+const packageJsonPath = path.join(__dirname, "../../../package.json");
 const packageJson = JSON.parse(readFileSync(packageJsonPath, "utf8"));
 
 /**
@@ -187,14 +187,12 @@ async function main(): Promise<void> {
 
 // Handle unhandled rejections
 process.on("unhandledRejection", (reason, promise) => {
-  // eslint-disable-next-line no-console -- CLI error handling requires console output
   console.error("Unhandled Rejection at:", promise, "reason:", reason);
   process.exit(1);
 });
 
 // Handle uncaught exceptions
 process.on("uncaughtException", error => {
-  // eslint-disable-next-line no-console -- CLI error handling requires console output
   console.error("Uncaught Exception:", error);
   process.exit(1);
 });
@@ -202,7 +200,6 @@ process.on("uncaughtException", error => {
 // Run the CLI
 if (import.meta.url === `file://${process.argv[1]}`) {
   main().catch(error => {
-    // eslint-disable-next-line no-console -- CLI error handling requires console output
     console.error("Fatal error:", error);
     process.exit(1);
   });

@@ -108,7 +108,7 @@ export class GenerateExportsCommand implements CLICommand<GenerateExportsOptions
       throw new Error(`Package path not found: ${resolvedPath}`);
     }
 
-    // Assume it's a package name in packages directory
+    // Assume it's a package name in the packages directory
     const packagesDirectory = path.join(process.cwd(), "packages");
     const packagePath = path.join(packagesDirectory, packageInput);
 
@@ -129,7 +129,8 @@ export class GenerateExportsCommand implements CLICommand<GenerateExportsOptions
       throw new Error("No packages directory found. Run this command from the monorepo root.");
     }
 
-    const { readdir } = await import("fs-extra");
+    const fsExtra = await import("fs-extra");
+    const { readdir } = fsExtra.default;
     const entries = await readdir(packagesDirectory, { withFileTypes: true });
 
     const packages: string[] = [];
@@ -155,7 +156,7 @@ export class GenerateExportsCommand implements CLICommand<GenerateExportsOptions
       const packageJson = await this.packageManager.readPackageJson(packagePath);
       this.logger.info(`Processing package: ${packageJson.name}`);
 
-      // Create backup if requested
+      // Create a backup if requested
       if (options.backup === true && options.dryRun !== true) {
         await this.packageManager.backupPackageJson(packagePath);
       }
@@ -197,7 +198,6 @@ export class GenerateExportsCommand implements CLICommand<GenerateExportsOptions
       if (options.dryRun === true) {
         this.logger.info("Dry run mode - package.json not updated");
         this.logger.info("Generated exports:");
-        // eslint-disable-next-line no-console -- CLI output for dry run mode
         console.log(JSON.stringify(exportsConfig, null, 2));
       } else {
         await this.packageManager.updatePackageJson(packagePath, exportsConfig);

@@ -176,7 +176,7 @@ export class GlobFileScanner implements FileScanner {
   }
 
   private async checkDualFormatSupport(packagePath: string): Promise<boolean> {
-    // Check if package has build configuration that supports dual format
+    // Check if package has build configuration that supports a dual format
     const buildConfigs = [
       "rslib.config.ts",
       "rslib.config.js",

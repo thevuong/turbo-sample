@@ -6,7 +6,7 @@
  *
  * Features:
  * - Automatic detection of exportable files
- * - Support for both ESM and CJS dual format exports
+ * - Support for both ESM and CJS dual-format exports
  * - TypeScript definition generation
  * - Customizable export mappings
  * - Backup and dry-run modes
@@ -14,9 +14,6 @@
  */
 
 // Export types
-// Import for type reference
-import { CLIApplication } from "./bin/cli";
-
 export type {
   PackageExport,
   PackageInfo,
@@ -27,40 +24,23 @@ export type {
   PackageManager,
   Logger,
   CLICommand,
-} from "./types/index";
+} from "@/types/index";
 
 // Export services
-export { createLogger, ConsoleLogger } from "./services/logger";
+export { createLogger, ConsoleLogger } from "@/services/logger";
 
-export { createPackageManager, FileSystemPackageManager } from "./services/package-manager";
+export { createPackageManager, FileSystemPackageManager } from "@/services/package-manager";
 
-export { createFileScanner, GlobFileScanner } from "./services/file-scanner";
+export { createFileScanner, GlobFileScanner } from "@/services/file-scanner";
 
-export { createExportGenerator, StandardExportGenerator, DEFAULT_EXPORT_OPTIONS } from "./services/export-generator";
+export { createExportGenerator, StandardExportGenerator, DEFAULT_EXPORT_OPTIONS } from "@/services/export-generator";
 
 // Export commands
 export {
   createGenerateExportsCommand,
   GenerateExportsCommand,
   type GenerateExportsOptions,
-} from "./commands/generate-exports";
+} from "@/commands/generate-exports";
 
 // Export CLI application
-export { CLIApplication } from "./bin/cli";
-
-/**
- * Convenience function to create a fully configured CLI application
- */
-export function createCLI(): CLIApplication {
-  return new CLIApplication();
-}
-
-/**
- * Package version
- */
-export const VERSION = "0.1.0";
-
-/**
- * Package name
- */
-export const PACKAGE_NAME = "@eslint-sample/cli";
+export { CLIApplication } from "@/bin/cli";

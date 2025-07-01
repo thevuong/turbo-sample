@@ -35,8 +35,7 @@ export class StandardExportGenerator implements ExportGenerator {
       const sortedExports = this.sortExports(exports, options.exportPriorities);
 
       for (const exp of sortedExports) {
-        const exportConfig = this.generateSingleExport(exp, options);
-        exportsConfig[exp.key] = exportConfig;
+        exportsConfig[exp.key] = this.generateSingleExport(exp, options);
       }
 
       this.logger.stopSpinner(`Generated ${Object.keys(exportsConfig).length} export entries`);
@@ -85,7 +84,7 @@ export class StandardExportGenerator implements ExportGenerator {
    */
   validateExports(exports: Record<string, unknown>): boolean {
     try {
-      // Check for required main export
+      // Check for the required main export
       if (!Object.prototype.hasOwnProperty.call(exports, ".")) {
         this.logger.warn('Missing main export "."');
         return false;
@@ -127,13 +126,13 @@ export class StandardExportGenerator implements ExportGenerator {
   }
 
   private generateSingleExport(exp: PackageExport, options: ExportGeneratorOptions): ExportConfig {
-    // For JSON files, return simple path
-    if (exp.sourcePath.endsWith(".json") === true) {
+    // For JSON files, return a simple path
+    if (exp.sourcePath.endsWith(".json")) {
       return `./${exp.sourcePath}`;
     }
 
     // For dual format packages
-    if (exp.dualFormat === true && options.dualFormat === true) {
+    if (exp.dualFormat && options.dualFormat) {
       return this.generateDualFormatExport(exp, options);
     }
 
@@ -161,7 +160,7 @@ export class StandardExportGenerator implements ExportGenerator {
     };
 
     // Add TypeScript definitions if available
-    if (exp.hasTypes === true) {
+    if (exp.hasTypes) {
       exportConfig.import.types = this.ensureRelativePath(
         path.join(options.distDir, options.esmDir, `${basePath}${options.extensions.types}`),
       );
@@ -191,7 +190,7 @@ export class StandardExportGenerator implements ExportGenerator {
   }
 
   private ensureRelativePath(path: string): string {
-    // Ensure path starts with "./" for proper relative path format
+    // Ensure a path starts with "./" for the proper relative path format
     return path.startsWith("./") ? path : `./${path}`;
   }
 
@@ -209,13 +208,13 @@ export class StandardExportGenerator implements ExportGenerator {
         return aPriority - bPriority;
       }
 
-      // Sort alphabetically within same category
+      // Sort alphabetically within the same category
       return a.key.localeCompare(b.key);
     });
   }
 
   private getExportPriority(key: string, priorityConfig?: Record<string, number>): number {
-    // Main export always comes first
+    // The main export always comes first
     if (key === ".") return 0;
 
     // Use custom priority configuration if provided

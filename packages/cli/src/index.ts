@@ -36,8 +36,6 @@ export { createLogger, ConsoleLogger } from "@/services/logger";
 
 export { createPackageManager, FileSystemPackageManager } from "@/services/package-manager";
 
-export { createFileScanner, GlobFileScanner } from "@/services/file-scanner";
-
 export { createExportGenerator, StandardExportGenerator, DEFAULT_EXPORT_OPTIONS } from "@/services/export-generator";
 
 // Export AST services

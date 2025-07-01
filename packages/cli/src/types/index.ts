@@ -21,39 +21,53 @@ export type {
   ExportsConfigFile,
 } from "@/schemas/validation";
 
-// Export AST analysis types
+// Export core data models
 export type {
-  // Core analysis types
+  // Analysis models
   FileAnalysis,
   ProjectAnalysis,
+  // Export-related models
   ExportInfo,
   ImportInfo,
   ReExportInfo,
   TypeExportInfo,
+  // Source and type information models
   SourceLocation,
   TypeInfo,
   ParameterInfo,
   TypeDefinition,
   PropertyInfo,
   MethodInfo,
+  // Dependency models
   DependencyGraph,
   CircularDependency,
   ExportConflict,
+} from "@/types/core";
+
+// Export enumerations (both as types and values)
+export { ExportKind, TypeExportKind } from "@/types/enums";
+
+// Export service interfaces
+export type {
+  // Analyzer services
+  ASTAnalyzer,
+  FileAnalyzer,
+  ProjectAnalyzer,
+  // Extractor services
+  ExportExtractor,
+  TypeChecker,
+  // Validator services
+  ExportValidator,
+} from "@/types/services";
+
+// Export result types
+export type {
+  // Validation result types
   ValidationResult,
   ValidationError,
   ValidationWarning,
+  // Type checking result types
   TypeCheckResult,
   TypeCheckError,
   TypeCheckWarning,
-
-  // Service interfaces
-  ASTAnalyzer,
-  ExportExtractor,
-  ExportValidator,
-  FileAnalyzer,
-  ProjectAnalyzer,
-  TypeChecker,
-} from "@/types/ast";
-
-// Export enums as values (not just types)
-export { ExportKind, TypeExportKind } from "@/types/ast";
+} from "@/types/results";

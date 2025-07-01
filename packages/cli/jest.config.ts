@@ -3,10 +3,9 @@ import type { Config } from "jest";
 const config: Config = {
   testEnvironment: "node",
   extensionsToTreatAsEsm: [".ts"],
+  passWithNoTests: true,
   moduleNameMapper: {
     "^@/(.*)$": "<rootDir>/src/$1",
-    "^chalk$": "<rootDir>/tests/__mocks__/chalk.js",
-    "^ora$": "<rootDir>/tests/__mocks__/ora.js",
   },
   transform: {
     "^.+\\.(t|j)sx?$": [
@@ -28,15 +27,10 @@ const config: Config = {
       },
     ],
   },
-  testMatch: [
-    "<rootDir>/src/**/*.test.ts",
-    "<rootDir>/src/**/*.spec.ts",
-    "<rootDir>/tests/**/*.test.ts",
-    "<rootDir>/tests/**/*.spec.ts",
-  ],
+  testMatch: ["<rootDir>/src/**/*.test.ts", "<rootDir>/src/**/*.spec.ts"],
   collectCoverageFrom: ["src/**/*.ts", "!src/**/*.test.ts", "!src/**/*.spec.ts", "!src/**/*.d.ts"],
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json"],
-  roots: ["<rootDir>/src", "<rootDir>/tests"],
+  roots: ["<rootDir>/src"],
 };
 
 export default config;

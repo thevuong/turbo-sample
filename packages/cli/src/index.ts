@@ -40,6 +40,15 @@ export { createFileScanner, GlobFileScanner } from "@/services/file-scanner";
 
 export { createExportGenerator, StandardExportGenerator, DEFAULT_EXPORT_OPTIONS } from "@/services/export-generator";
 
+// Export AST services
+export { createASTAnalyzer, TypeScriptASTAnalyzer } from "@/services/ast/analyzer";
+
+export {
+  createEnhancedFileScanner,
+  EnhancedFileScanner,
+  type EnhancedFileScannerOptions,
+} from "@/services/ast/enhanced-file-scanner";
+
 // Export commands
 export {
   createGenerateExportsCommand,

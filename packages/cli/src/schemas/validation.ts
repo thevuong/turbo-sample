@@ -64,6 +64,7 @@ export const packageExportSchema = z.object({
   sourcePath: z.string(),
   dualFormat: z.boolean(),
   hasTypes: z.boolean(),
+  metadata: z.record(z.string(), z.unknown()).optional(),
 });
 
 // Schema for export generator options

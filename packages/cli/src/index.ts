@@ -24,6 +24,11 @@ export type {
   PackageManager,
   Logger,
   CLICommand,
+  ExportsConfigFile,
+  ConfigLoader,
+  ExportConfig,
+  CategoryConfig,
+  ExportPriorityConfig,
 } from "@/types/index";
 
 // Export services

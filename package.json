@@ -34,6 +34,7 @@
     "remove:workspace": "pnpm remove --save-workspace-root",
     "start": "turbo dev",
     "test": "turbo test",
+    "type-check": "turbo type-check",
     "update:deps": "pnpm update --latest",
     "workspace:graph": "pnpm list --depth=Infinity --prod=false",
     "workspace:list": "pnpm list --depth=0"

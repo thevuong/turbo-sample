@@ -1,10 +1,19 @@
 import path from "node:path";
 
-import { pathExists } from "fs-extra";
+import { pathExists } from "fs-extra/esm";
 
 import { DEFAULT_EXPORT_OPTIONS } from "@/services/export-generator";
 
-import type { CLICommand, ExportGenerator, ExportGeneratorOptions, FileScanner, Logger, PackageManager } from "@/types";
+import type {
+  CLICommand,
+  ConfigLoader,
+  ExportGenerator,
+  ExportGeneratorOptions,
+  ExportsConfigFile,
+  FileScanner,
+  Logger,
+  PackageManager,
+} from "@/types";
 
 export interface GenerateExportsOptions {
   /** Target package path or name */
@@ -21,6 +30,8 @@ export interface GenerateExportsOptions {
   exclude?: string[];
   /** Custom export mappings */
   mappings?: Record<string, string> | undefined;
+  /** Path to configuration file */
+  config?: string;
 }
 
 /**
@@ -36,16 +47,20 @@ export class GenerateExportsCommand implements CLICommand<GenerateExportsOptions
     private readonly fileScanner: FileScanner,
     private readonly exportGenerator: ExportGenerator,
     private readonly packageManager: PackageManager,
+    private readonly configLoader: ConfigLoader,
   ) {}
 
   async execute(options: GenerateExportsOptions): Promise<void> {
     try {
       this.logger.info("Starting export generation...");
 
+      // Load configuration file
+      const config = await this.configLoader.loadConfig(options.config);
+
       const packages = await this.resolvePackages(options.package);
 
       for (const packagePath of packages) {
-        await this.processPackage(packagePath, options);
+        await this.processPackage(packagePath, options, config);
       }
 
       this.logger.success("Export generation completed successfully!");
@@ -150,7 +165,11 @@ export class GenerateExportsCommand implements CLICommand<GenerateExportsOptions
     return packages;
   }
 
-  private async processPackage(packagePath: string, options: GenerateExportsOptions): Promise<void> {
+  private async processPackage(
+    packagePath: string,
+    options: GenerateExportsOptions,
+    config: ExportsConfigFile | null,
+  ): Promise<void> {
     try {
       // Read package info
       const packageJson = await this.packageManager.readPackageJson(packagePath);
@@ -164,9 +183,18 @@ export class GenerateExportsCommand implements CLICommand<GenerateExportsOptions
       // Scan for exportable files
       let detectedExports = await this.fileScanner.scanPackage(packagePath);
 
+      // Merge CLI options with configuration
+      const globalConfig = config?.global;
+      const packageConfig = config?.packages?.[packageJson.name];
+      const mergedConfig = this.configLoader.mergeConfig(globalConfig, packageConfig);
+
+      // Determine final include/exclude patterns (CLI options take precedence)
+      const finalInclude = options.include || mergedConfig.include;
+      const finalExclude = options.exclude || mergedConfig.exclude;
+
       // Apply filters if specified
-      if (options.include || options.exclude) {
-        detectedExports = this.fileScanner.filterExports(detectedExports, options.include, options.exclude);
+      if (finalInclude || finalExclude) {
+        detectedExports = this.fileScanner.filterExports(detectedExports, finalInclude, finalExclude);
       }
 
       if (detectedExports.length === 0) {
@@ -174,15 +202,19 @@ export class GenerateExportsCommand implements CLICommand<GenerateExportsOptions
         return;
       }
 
-      // Generate export options
+      // Generate export options (CLI options take precedence over config)
       const exportOptions: ExportGeneratorOptions = {
         ...DEFAULT_EXPORT_OPTIONS,
-        dualFormat: options.dualFormat ?? DEFAULT_EXPORT_OPTIONS.dualFormat,
+        dualFormat: options.dualFormat ?? mergedConfig.dualFormat ?? DEFAULT_EXPORT_OPTIONS.dualFormat,
+        ...(mergedConfig.exportPriorities && { exportPriorities: mergedConfig.exportPriorities }),
       };
 
+      // Determine final mappings (CLI options take precedence)
+      const finalMappings = options.mappings || mergedConfig.mappings;
+
       // Generate exports configuration
-      const exportsConfig = options.mappings
-        ? this.exportGenerator.generateCustomExports(detectedExports, exportOptions, options.mappings)
+      const exportsConfig = finalMappings
+        ? this.exportGenerator.generateCustomExports(detectedExports, exportOptions, finalMappings)
         : this.exportGenerator.generateExports(detectedExports, exportOptions);
 
       // Validate generated exports
@@ -219,6 +251,7 @@ export function createGenerateExportsCommand(
   fileScanner: FileScanner,
   exportGenerator: ExportGenerator,
   packageManager: PackageManager,
+  configLoader: ConfigLoader,
 ): CLICommand<GenerateExportsOptions> {
-  return new GenerateExportsCommand(logger, fileScanner, exportGenerator, packageManager);
+  return new GenerateExportsCommand(logger, fileScanner, exportGenerator, packageManager, configLoader);
 }

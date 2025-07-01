@@ -8,6 +8,7 @@ import { Command } from "commander";
 
 // Import services
 import { createGenerateExportsCommand, type GenerateExportsOptions } from "@/commands/generate-exports";
+import { createConfigLoader } from "@/services/config-loader";
 import { createExportGenerator } from "@/services/export-generator";
 import { createFileScanner } from "@/services/file-scanner";
 import { createLogger } from "@/services/logger";
@@ -29,6 +30,7 @@ class CLIApplication {
   private readonly packageManager = createPackageManager(this.logger);
   private readonly fileScanner = createFileScanner(this.logger);
   private readonly exportGenerator = createExportGenerator(this.logger);
+  private readonly configLoader = createConfigLoader(this.logger);
 
   constructor() {
     this.program = new Command();
@@ -79,6 +81,7 @@ class CLIApplication {
       .option("-i, --include <patterns...>", "Include patterns for files")
       .option("-e, --exclude <patterns...>", "Exclude patterns for files")
       .option("-m, --mappings <json>", "Custom export mappings as JSON string")
+      .option("-c, --config <path>", "Path to exports configuration file")
       .action(async options => {
         try {
           const command = createGenerateExportsCommand(
@@ -86,6 +89,7 @@ class CLIApplication {
             this.fileScanner,
             this.exportGenerator,
             this.packageManager,
+            this.configLoader,
           );
 
           // Parse mappings if provided
@@ -107,6 +111,7 @@ class CLIApplication {
             include: options.include,
             exclude: options.exclude,
             mappings,
+            config: options.config,
           };
 
           // Validate options

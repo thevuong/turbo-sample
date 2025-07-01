@@ -110,6 +110,35 @@ export interface Logger {
   failSpinner: (message?: string) => void;
 }
 
+export interface ExportConfig {
+  /** Include patterns for files to export */
+  include?: string[];
+  /** Exclude patterns for files to exclude from exports */
+  exclude?: string[];
+  /** Custom export mappings */
+  mappings?: Record<string, string>;
+  /** Whether to generate dual format exports */
+  dualFormat?: boolean;
+  /** Package-specific export priorities */
+  exportPriorities?: ExportPriorityConfig;
+}
+
+export interface ExportsConfigFile {
+  /** Global configuration applied to all packages */
+  global?: ExportConfig;
+  /** Package-specific configurations */
+  packages?: Record<string, ExportConfig>;
+}
+
+export interface ConfigLoader {
+  /** Load exports configuration from file */
+  loadConfig: (configPath?: string) => Promise<ExportsConfigFile | null>;
+  /** Find configuration file in project */
+  findConfigFile: (startPath?: string) => Promise<string | null>;
+  /** Merge global and package-specific configuration */
+  mergeConfig: (global: ExportConfig | undefined, packageConfig: ExportConfig | undefined) => ExportConfig;
+}
+
 export interface CLICommand<T = unknown> {
   /** Command name */
   name: string;

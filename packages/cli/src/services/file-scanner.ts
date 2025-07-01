@@ -1,6 +1,6 @@
 import path from "node:path";
 
-import { pathExists } from "fs-extra";
+import { pathExists } from "fs-extra/esm";
 import { glob } from "glob";
 
 import type { CategoryConfig, FileScanner, Logger, PackageExport } from "@/types";

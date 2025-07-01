@@ -38,6 +38,9 @@ export class StandardExportGenerator implements ExportGenerator {
         exportsConfig[exp.key] = this.generateSingleExport(exp, options);
       }
 
+      // Ensure the main export "." exists, according to npm best practices
+      this.ensureMainExport(exportsConfig, sortedExports, options);
+
       this.logger.stopSpinner(`Generated ${Object.keys(exportsConfig).length} export entries`);
       return exportsConfig;
     } catch (error) {
@@ -228,6 +231,72 @@ export class StandardExportGenerator implements ExportGenerator {
 
     // Default priority for everything else
     return 99;
+  }
+
+  /**
+   * Ensure a main export "." exists according to npm best practices
+   */
+  private ensureMainExport(
+    exportsConfig: ExportsRecord,
+    sortedExports: PackageExport[],
+    options: ExportGeneratorOptions,
+  ): void {
+    // If the main export already exists, nothing to do
+    if (Object.prototype.hasOwnProperty.call(exportsConfig, ".")) {
+      return;
+    }
+
+    // Try to find a suitable candidate for the main export
+    const mainCandidates = ["./index", "./main", "./base", "./src/index", "./lib/index"];
+
+    for (const candidate of mainCandidates) {
+      if (Object.prototype.hasOwnProperty.call(exportsConfig, candidate)) {
+        // eslint-disable-next-line security/detect-object-injection
+        const candidateExport = exportsConfig[candidate];
+        if (candidateExport !== undefined) {
+          exportsConfig["."] = candidateExport;
+          this.logger.info(`Created main export "." pointing to "${candidate}"`);
+          return;
+        }
+      }
+    }
+
+    // If no suitable candidate found, try to create the main export from the first available export
+    // This is especially useful for configuration packages
+    const availableExports = Object.keys(exportsConfig);
+    if (availableExports.length > 0) {
+      // Look for exports that seem like they could be main exports
+      const potentialMains = availableExports.filter(
+        key => key.includes("base") || key.includes("index") || key.includes("main") || key.includes("default"),
+      );
+
+      if (potentialMains.length > 0) {
+        const mainExport = potentialMains[0];
+        if (mainExport !== undefined) {
+          // eslint-disable-next-line security/detect-object-injection
+          const mainExportValue = exportsConfig[mainExport];
+          if (mainExportValue !== undefined) {
+            exportsConfig["."] = mainExportValue;
+            this.logger.info(`Created main export "." pointing to "${mainExport}"`);
+            return;
+          }
+        }
+      }
+
+      // As a last resort, use the first export alphabetically
+      const sortedExports = availableExports.sort();
+      if (sortedExports.length > 0) {
+        const firstExport = sortedExports[0];
+        if (firstExport !== undefined) {
+          // eslint-disable-next-line security/detect-object-injection
+          const firstExportValue = exportsConfig[firstExport];
+          if (firstExportValue !== undefined) {
+            exportsConfig["."] = firstExportValue;
+            this.logger.warn(`Created main export "." pointing to "${firstExport}" as fallback`);
+          }
+        }
+      }
+    }
   }
 
   private validateSingleExport(key: string, value: ExportConfig): boolean {

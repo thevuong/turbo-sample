@@ -93,6 +93,7 @@ describe("ExportGenerator Service", () => {
       const result = generator.generateExports(exports, DEFAULT_EXPORT_OPTIONS);
 
       expect(result).toEqual({
+        ".": "./base.json",
         "./base": "./base.json",
         "./react": "./react.json",
       });

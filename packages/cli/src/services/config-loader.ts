@@ -43,7 +43,7 @@ export class StandardConfigLoader implements ConfigLoader {
         }
         resolvedPath = configPath;
       } else {
-        // Find configuration file
+        // Find a configuration file
         resolvedPath = await this.findConfigFile();
         if (!resolvedPath) {
           this.logger.info("No exports configuration file found, using defaults");

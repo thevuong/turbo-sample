@@ -1,3 +1,4 @@
+import { readdir } from "node:fs/promises";
 import path from "node:path";
 
 import { pathExists } from "fs-extra/esm";
@@ -142,8 +143,6 @@ export class GenerateExportsCommand implements CLICommand<GenerateExportsOptions
       throw new Error("No packages directory found. Run this command from the monorepo root.");
     }
 
-    const fsExtra = await import("fs-extra");
-    const { readdir } = fsExtra.default;
     const entries = await readdir(packagesDirectory, { withFileTypes: true });
 
     const packages: string[] = [];

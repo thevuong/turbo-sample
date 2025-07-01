@@ -10,6 +10,8 @@ import type { Logger, PackageJson, PackageManager } from "@/types";
 /**
  * Package manager service implementation for handling package.json operations
  * Follows the Single Responsibility Principle by handling only package.json concerns
+ *
+ * Moved to package-management domain as it handles package-related operations.
  */
 export class FileSystemPackageManager implements PackageManager {
   constructor(private readonly logger: Logger) {}

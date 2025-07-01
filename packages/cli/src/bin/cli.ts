@@ -7,12 +7,14 @@ import { fileURLToPath } from "node:url";
 import { Command } from "commander";
 
 import { createGenerateExportsCommand } from "@/commands/generate-exports";
-import { createASTAnalyzer } from "@/services/ast/analyzer";
-import { createEnhancedFileScanner } from "@/services/ast/enhanced-file-scanner";
-import { createConfigLoader } from "@/services/config-loader";
-import { createExportGenerator } from "@/services/export-generator";
-import { createLogger } from "@/services/logger";
-import { createPackageManager } from "@/services/package-manager";
+import {
+  createASTAnalyzer,
+  createEnhancedFileScanner,
+  createConfigLoader,
+  createExportGenerator,
+  createLogger,
+  createPackageManager,
+} from "@/services";
 
 import type { GenerateExportsOptions } from "@/types";
 

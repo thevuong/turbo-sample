@@ -10,6 +10,8 @@
  * - Liskov Substitution: Can replace the original FileScanner
  * - Interface Segregation: Implements focused interfaces
  * - Dependency Inversion: Depends on abstractions
+ *
+ * Moved to analysis domain as it handles file scanning and code analysis concerns.
  */
 
 import { access, constants } from "node:fs/promises";

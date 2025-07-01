@@ -5,7 +5,7 @@ import { pathExists } from "fs-extra/esm";
 import { ZodError } from "zod";
 
 import { generateExportsOptionsSchema } from "@/schemas/validation";
-import { DEFAULT_EXPORT_OPTIONS } from "@/services/export-generator";
+import { DEFAULT_EXPORT_OPTIONS } from "@/services";
 
 import type {
   CLICommand,

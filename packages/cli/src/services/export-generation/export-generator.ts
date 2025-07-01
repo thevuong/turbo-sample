@@ -21,6 +21,8 @@ type ExportsRecord = Record<string, ExportConfig>;
 /**
  * Export generator service implementation for creating package.json exports
  * Follows the Single Responsibility Principle by handling only export generation
+ *
+ * Moved to export-generation domain as it handles export generation logic.
  */
 export class StandardExportGenerator implements ExportGenerator {
   constructor(private readonly logger: Logger) {}

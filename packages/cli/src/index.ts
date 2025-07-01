@@ -31,21 +31,17 @@ export type {
   ExportPriorityConfig,
 } from "@/types/index";
 
-// Export services
-export { createLogger, ConsoleLogger } from "@/services/logger";
+// Export services (now organized by domain following SOLID principles)
+export { createLogger, ConsoleLogger } from "@/services";
 
-export { createPackageManager, FileSystemPackageManager } from "@/services/package-manager";
+export { createPackageManager, FileSystemPackageManager } from "@/services";
 
-export { createExportGenerator, StandardExportGenerator, DEFAULT_EXPORT_OPTIONS } from "@/services/export-generator";
+export { createExportGenerator, StandardExportGenerator, DEFAULT_EXPORT_OPTIONS } from "@/services";
 
-// Export AST services
-export { createASTAnalyzer, TypeScriptASTAnalyzer } from "@/services/ast/analyzer";
+// Export AST services (now in analysis domain)
+export { createASTAnalyzer, TypeScriptASTAnalyzer } from "@/services";
 
-export {
-  createEnhancedFileScanner,
-  EnhancedFileScanner,
-  type EnhancedFileScannerOptions,
-} from "@/services/ast/enhanced-file-scanner";
+export { createEnhancedFileScanner, EnhancedFileScanner, type EnhancedFileScannerOptions } from "@/services";
 
 // Export commands
 export {

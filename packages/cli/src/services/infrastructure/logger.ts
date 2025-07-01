@@ -6,6 +6,8 @@ import type { Logger } from "@/types";
 /**
  * Logger service implementation using chalk for colors and ora for spinners
  * Follows the Single Responsibility Principle by handling only logging concerns
+ *
+ * Moved to infrastructure domain as logging is an infrastructure concern.
  */
 export class ConsoleLogger implements Logger {
   private spinner: Ora | null = null;

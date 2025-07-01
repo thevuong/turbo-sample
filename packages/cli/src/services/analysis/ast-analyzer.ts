@@ -5,6 +5,7 @@
  * TypeScript/JavaScript AST analysis capabilities using ts-morph.
  *
  * Follows Single Responsibility Principle - only handles AST analysis.
+ * Moved to analysis domain as it handles code analysis concerns.
  */
 
 import path from "node:path";

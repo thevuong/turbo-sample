@@ -10,6 +10,8 @@ import type { ConfigLoader, ExportConfig, ExportsConfigFile, Logger } from "@/ty
 /**
  * Configuration loader for exports.config.{js,ts} files
  * Supports both JavaScript and TypeScript configuration files
+ *
+ * Moved to configuration domain as it handles configuration management concerns.
  */
 export class StandardConfigLoader implements ConfigLoader {
   private readonly configFileNames = [

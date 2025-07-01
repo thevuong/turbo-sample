@@ -1,13 +1,11 @@
 // Configuration for exports generation
 // This file defines which files should be exported from each package
 
-import type { ExportsConfigFile } from "@eslint-sample/cli";
-
 /**
  * Exports configuration for the monorepo
  * This file controls which files are exported from each package
  */
-const config: ExportsConfigFile = {
+const config = {
   // Global configuration applied to all packages
   global: {
     // Exclude common patterns that shouldn't be exported

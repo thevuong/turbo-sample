@@ -67,5 +67,3 @@ export const typescriptRules: Linter.Config[] = [
     },
   },
 ];
-
-export default typescriptRules;

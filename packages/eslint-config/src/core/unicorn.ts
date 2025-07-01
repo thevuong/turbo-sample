@@ -61,5 +61,3 @@ export const unicornRules: Linter.Config[] = [
     },
   },
 ];
-
-export default unicornRules;

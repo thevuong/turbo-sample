@@ -142,5 +142,3 @@ export const jsxA11yRules: Linter.Config[] = [
     },
   },
 ];
-
-export default jsxA11yRules;

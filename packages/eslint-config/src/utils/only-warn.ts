@@ -10,5 +10,3 @@ export const onlyWarnRules: Linter.Config[] = [
     },
   },
 ];
-
-export default onlyWarnRules;

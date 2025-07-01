@@ -15,5 +15,3 @@ export const markdownRules: Linter.Config[] = [
     },
   },
 ];
-
-export default markdownRules;

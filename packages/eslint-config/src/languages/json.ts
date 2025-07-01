@@ -30,5 +30,3 @@ export const jsonRules: Linter.Config[] = [
     },
   },
 ];
-
-export default jsonRules;

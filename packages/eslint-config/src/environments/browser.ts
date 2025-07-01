@@ -14,5 +14,3 @@ export const browserEnvironment: Linter.Config[] = [
     },
   },
 ];
-
-export default browserEnvironment;

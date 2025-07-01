@@ -117,5 +117,3 @@ export const importRules: Linter.Config[] = [
     },
   },
 ];
-
-export default importRules;

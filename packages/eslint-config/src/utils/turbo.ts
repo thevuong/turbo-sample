@@ -13,5 +13,3 @@ export const turboRules: Linter.Config[] = [
     },
   },
 ];
-
-export default turboRules;

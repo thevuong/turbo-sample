@@ -13,5 +13,3 @@ export const cssRules: Linter.Config[] = [
     },
   },
 ];
-
-export default cssRules;

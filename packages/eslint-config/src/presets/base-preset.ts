@@ -4,6 +4,7 @@ import { securityRules } from "@/core/security";
 import { typescriptRules } from "@/core/typescript";
 import { unicornRules } from "@/core/unicorn";
 import { nodeEnvironment } from "@/environments/node";
+import { testEnvironment } from "@/environments/test";
 import { cssRules } from "@/languages/css";
 import { jsonRules } from "@/languages/json";
 import { markdownRules } from "@/languages/markdown";
@@ -67,10 +68,9 @@ export const basePreset: Linter.Config[] = composeConfig(
   unicornRules,
   importRules,
   nodeEnvironment,
+  testEnvironment,
   jsonRules,
   markdownRules,
   cssRules,
   prettierRules,
 );
-
-export default basePreset;

@@ -70,5 +70,3 @@ export const jestRules: Linter.Config[] = [
     },
   },
 ];
-
-export default jestRules;

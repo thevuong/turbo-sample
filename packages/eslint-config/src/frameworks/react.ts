@@ -24,5 +24,3 @@ export const reactRules: Linter.Config[] = [
     },
   },
 ];
-
-export default reactRules;

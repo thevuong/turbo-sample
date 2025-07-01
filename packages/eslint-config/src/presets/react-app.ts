@@ -31,5 +31,3 @@ export const reactAppPreset: Linter.Config[] = composeConfig(
   jestRules,
   prettierRules,
 );
-
-export default reactAppPreset;

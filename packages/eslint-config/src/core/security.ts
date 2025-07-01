@@ -27,5 +27,3 @@ export const securityRules: Linter.Config[] = [
     },
   },
 ];
-
-export default securityRules;

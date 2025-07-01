@@ -60,5 +60,3 @@ const libraryStrictRules: Linter.Config[] = [
  * ];
  */
 export const libraryPreset: Linter.Config[] = composeConfig(basePreset, libraryStrictRules);
-
-export default libraryPreset;

@@ -13,5 +13,3 @@ export const nodeEnvironment: Linter.Config[] = [
     },
   },
 ];
-
-export default nodeEnvironment;

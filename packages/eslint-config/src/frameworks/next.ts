@@ -19,5 +19,3 @@ export const nextRules: Linter.Config[] = [
     },
   },
 ];
-
-export default nextRules;

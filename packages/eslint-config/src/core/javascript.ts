@@ -63,5 +63,3 @@ export const baseJavaScriptRules: Linter.Config[] = [
     },
   },
 ];
-
-export default baseJavaScriptRules;

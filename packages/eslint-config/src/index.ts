@@ -4,6 +4,7 @@ export { baseJavaScriptRules } from "@/core/javascript";
 export { typescriptRules } from "@/core/typescript";
 export { nodeEnvironment } from "@/environments/node";
 export { browserEnvironment } from "@/environments/browser";
+export { testEnvironment } from "@/environments/test";
 export { jsonRules } from "@/languages/json";
 export { markdownRules } from "@/languages/markdown";
 export { cssRules } from "@/languages/css";

@@ -96,7 +96,7 @@ export class EnhancedFileScanner implements FileScanner {
   filterExports(exports: PackageExport[], includePatterns?: string[], excludePatterns?: string[]): PackageExport[] {
     let filtered = exports;
 
-    // Apply include patterns
+    // Apply to include patterns
     if (includePatterns && includePatterns.length > 0) {
       filtered = filtered.filter(exp => includePatterns.some(pattern => this.matchesPattern(exp.key, pattern)));
     }

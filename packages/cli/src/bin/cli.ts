@@ -6,11 +6,11 @@ import { fileURLToPath } from "node:url";
 
 import { Command } from "commander";
 
-// Import services
 import { createGenerateExportsCommand } from "@/commands/generate-exports";
+import { createASTAnalyzer } from "@/services/ast/analyzer";
+import { createEnhancedFileScanner } from "@/services/ast/enhanced-file-scanner";
 import { createConfigLoader } from "@/services/config-loader";
 import { createExportGenerator } from "@/services/export-generator";
-import { createFileScanner } from "@/services/file-scanner";
 import { createLogger } from "@/services/logger";
 import { createPackageManager } from "@/services/package-manager";
 
@@ -30,7 +30,8 @@ class CLIApplication {
   private readonly program: Command;
   private readonly logger = createLogger();
   private readonly packageManager = createPackageManager(this.logger);
-  private readonly fileScanner = createFileScanner(this.logger);
+  private readonly astAnalyzer = createASTAnalyzer(this.logger);
+  private readonly fileScanner = createEnhancedFileScanner(this.logger, this.astAnalyzer);
   private readonly exportGenerator = createExportGenerator(this.logger);
   private readonly configLoader = createConfigLoader(this.logger);
 

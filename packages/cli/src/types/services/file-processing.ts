@@ -1,9 +1,15 @@
 /**
- * Processing-related types and interfaces for scanning and generating exports
+ * File processing service interfaces
+ *
+ * These interfaces define contracts for file scanning and export generation operations.
+ * Following Single Responsibility and Interface Segregation Principles.
  */
 
 import type { CategoryConfig, ExportGeneratorOptions, PackageExport } from "@/schemas/validation";
 
+/**
+ * Interface Segregation: Separate file scanning from export generation
+ */
 export interface FileScanner {
   /** Scan a package directory for exportable files */
   scanPackage: (packagePath: string) => Promise<PackageExport[]>;
@@ -13,6 +19,9 @@ export interface FileScanner {
   setCategoryConfig?: (config: CategoryConfig) => void;
 }
 
+/**
+ * Interface Segregation: Separate export generation from file scanning
+ */
 export interface ExportGenerator {
   /** Generate exports configuration for a package */
   generateExports: (exports: PackageExport[], options: ExportGeneratorOptions) => Record<string, unknown>;

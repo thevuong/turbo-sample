@@ -1,9 +1,15 @@
 /**
- * Infrastructure-related types and interfaces for CLI, logging, and configuration
+ * Infrastructure service interfaces
+ *
+ * These interfaces define contracts for CLI infrastructure services.
+ * Following Single Responsibility and Interface Segregation Principles.
  */
 
 import type { ExportConfig, ExportsConfigFile } from "@/schemas/validation";
 
+/**
+ * Interface Segregation: Separate logging functionality
+ */
 export interface Logger {
   /** Log info message */
   info: (message: string) => void;
@@ -21,6 +27,9 @@ export interface Logger {
   failSpinner: (message?: string) => void;
 }
 
+/**
+ * Interface Segregation: Separate configuration loading functionality
+ */
 export interface ConfigLoader {
   /** Load exports configuration from a file */
   loadConfig: (configPath?: string) => Promise<ExportsConfigFile | null>;
@@ -30,6 +39,9 @@ export interface ConfigLoader {
   mergeConfig: (global: ExportConfig | undefined, packageConfig: ExportConfig | undefined) => ExportConfig;
 }
 
+/**
+ * Interface Segregation: Separate CLI command functionality
+ */
 export interface CLICommand<T = unknown> {
   /** Command name */
   name: string;

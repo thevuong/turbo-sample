@@ -3,12 +3,8 @@
  * Re-exports from modular type files for better organization
  */
 
-// Re-export interfaces from modular files
-export type { PackageInfo, PackageManager } from "@/types/package";
-
-export type { FileScanner, ExportGenerator } from "@/types/processing";
-
-export type { Logger, ConfigLoader, CLICommand } from "@/types/infrastructure";
+// Re-export data models
+export type { PackageInfo } from "@/types/models/package";
 
 export type {
   ExportPriorityConfig,
@@ -58,6 +54,15 @@ export type {
   TypeChecker,
   // Validator services
   ExportValidator,
+  // Package management services
+  PackageManager,
+  // File processing services
+  FileScanner,
+  ExportGenerator,
+  // Infrastructure services
+  Logger,
+  ConfigLoader,
+  CLICommand,
 } from "@/types/services";
 
 // Export result types

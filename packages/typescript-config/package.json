@@ -21,6 +21,7 @@
   "author": "ESLint Sample Team",
   "type": "module",
   "exports": {
+    ".": "./base.json",
     "./base": "./base.json",
     "./next": "./next.json",
     "./react": "./react.json",

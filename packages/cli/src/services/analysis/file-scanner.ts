@@ -500,14 +500,14 @@ export class EnhancedFileScanner implements FileScanner {
     }
 
     // Group exports by category if category config is provided
-    const groups: Record<string, PackageExport[]> = {};
+    const groups = new Map<string, PackageExport[]>();
 
     for (const exp of exports) {
       const category = this.categorizeExport(exp);
-      if (!groups[category]) {
-        groups[category] = [];
+      if (!groups.has(category)) {
+        groups.set(category, []);
       }
-      groups[category].push(exp);
+      groups.get(category)?.push(exp);
     }
 
     // Flatten the groups back to a single array
@@ -540,7 +540,16 @@ export class EnhancedFileScanner implements FileScanner {
         case ExportKind.Variable: {
           return "constants";
         }
-        default: {
+        case ExportKind.Enum: {
+          return "types";
+        }
+        case ExportKind.Namespace: {
+          return "namespaces";
+        }
+        case ExportKind.Module: {
+          return "modules";
+        }
+        case ExportKind.Unknown: {
           return "default";
         }
       }

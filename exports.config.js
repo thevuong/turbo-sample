@@ -44,6 +44,7 @@ const config = {
     // TypeScript config package - export all JSON configs
     "@eslint-sample/typescript-config": {
       include: ["*.json"],
+      exclude: [], // Explicitly include all JSON files
       dualFormat: false, // JSON files don't need a dual format
     },
   },

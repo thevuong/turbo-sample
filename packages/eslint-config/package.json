@@ -116,6 +116,16 @@
         "types": "./dist/cjs/environments/browser.d.ts"
       }
     },
+    "./environments/test": {
+      "import": {
+        "default": "./dist/esm/environments/test.js",
+        "types": "./dist/esm/environments/test.d.ts"
+      },
+      "require": {
+        "default": "./dist/cjs/environments/test.cjs",
+        "types": "./dist/cjs/environments/test.d.ts"
+      }
+    },
     "./languages/json": {
       "import": {
         "default": "./dist/esm/languages/json.js",

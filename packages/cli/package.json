@@ -31,6 +31,126 @@
         "default": "./dist/cjs/index.cjs",
         "types": "./dist/cjs/index.d.ts"
       }
+    },
+    "./types/core": {
+      "import": {
+        "default": "./dist/esm/types/core/index.js",
+        "types": "./dist/esm/types/core/index.d.ts"
+      },
+      "require": {
+        "default": "./dist/cjs/types/core/index.cjs",
+        "types": "./dist/cjs/types/core/index.d.ts"
+      }
+    },
+    "./types/core/analysis": {
+      "import": {
+        "default": "./dist/esm/types/core/analysis.js",
+        "types": "./dist/esm/types/core/analysis.d.ts"
+      },
+      "require": {
+        "default": "./dist/cjs/types/core/analysis.cjs",
+        "types": "./dist/cjs/types/core/analysis.d.ts"
+      }
+    },
+    "./types/core/dependencies": {
+      "import": {
+        "default": "./dist/esm/types/core/dependencies.js",
+        "types": "./dist/esm/types/core/dependencies.d.ts"
+      },
+      "require": {
+        "default": "./dist/cjs/types/core/dependencies.cjs",
+        "types": "./dist/cjs/types/core/dependencies.d.ts"
+      }
+    },
+    "./types/core/exports": {
+      "import": {
+        "default": "./dist/esm/types/core/exports.js",
+        "types": "./dist/esm/types/core/exports.d.ts"
+      },
+      "require": {
+        "default": "./dist/cjs/types/core/exports.cjs",
+        "types": "./dist/cjs/types/core/exports.d.ts"
+      }
+    },
+    "./types/core/source": {
+      "import": {
+        "default": "./dist/esm/types/core/source.js",
+        "types": "./dist/esm/types/core/source.d.ts"
+      },
+      "require": {
+        "default": "./dist/cjs/types/core/source.cjs",
+        "types": "./dist/cjs/types/core/source.d.ts"
+      }
+    },
+    "./types/enums": {
+      "import": {
+        "default": "./dist/esm/types/enums/index.js",
+        "types": "./dist/esm/types/enums/index.d.ts"
+      },
+      "require": {
+        "default": "./dist/cjs/types/enums/index.cjs",
+        "types": "./dist/cjs/types/enums/index.d.ts"
+      }
+    },
+    "./types/enums/export-kinds": {
+      "import": {
+        "default": "./dist/esm/types/enums/export-kinds.js",
+        "types": "./dist/esm/types/enums/export-kinds.d.ts"
+      },
+      "require": {
+        "default": "./dist/cjs/types/enums/export-kinds.cjs",
+        "types": "./dist/cjs/types/enums/export-kinds.d.ts"
+      }
+    },
+    "./types/models/package": {
+      "import": {
+        "default": "./dist/esm/types/models/package.js",
+        "types": "./dist/esm/types/models/package.d.ts"
+      },
+      "require": {
+        "default": "./dist/cjs/types/models/package.cjs",
+        "types": "./dist/cjs/types/models/package.d.ts"
+      }
+    },
+    "./types/results": {
+      "import": {
+        "default": "./dist/esm/types/results/index.js",
+        "types": "./dist/esm/types/results/index.d.ts"
+      },
+      "require": {
+        "default": "./dist/cjs/types/results/index.cjs",
+        "types": "./dist/cjs/types/results/index.d.ts"
+      }
+    },
+    "./types/results/type-checking": {
+      "import": {
+        "default": "./dist/esm/types/results/type-checking.js",
+        "types": "./dist/esm/types/results/type-checking.d.ts"
+      },
+      "require": {
+        "default": "./dist/cjs/types/results/type-checking.cjs",
+        "types": "./dist/cjs/types/results/type-checking.d.ts"
+      }
+    },
+    "./types/results/validation": {
+      "import": {
+        "default": "./dist/esm/types/results/validation.js",
+        "types": "./dist/esm/types/results/validation.d.ts"
+      },
+      "require": {
+        "default": "./dist/cjs/types/results/validation.cjs",
+        "types": "./dist/cjs/types/results/validation.d.ts"
+      }
+    },
+    "./types/services": {
+      "import": {
+        "default": "./dist/esm/types/services/index.js",
+        "types": "./dist/esm/types/services/index.d.ts"
+      },
+      "require": {
+        "default": "./dist/cjs/types/services/index.cjs",
+        "types": "./dist/cjs/types/services/index.d.ts"
+      }
     }
   },
   "main": "./dist/cjs/index.cjs",

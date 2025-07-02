@@ -4,6 +4,7 @@
 /**
  * Exports configuration for the monorepo
  * This file controls which files are exported from each package
+ * @type {import("@eslint-sample/cli").ExportsConfigFile}
  */
 const config = {
   // Global configuration applied to all packages
